@@ -29,8 +29,8 @@ const HeaderContainer = styled.header`
   z-index: ${({ theme }) => theme.zIndexes.header};
   width: 100%;
   display: flex;
-  height: 59;
-  max-width: 48rem;
+  height: 59px;
+  max-width: 42rem;
 `;
 
 const BoxLayout = css`

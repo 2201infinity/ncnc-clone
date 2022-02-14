@@ -1,7 +1,12 @@
+import Header from "components/common/Header";
 import type { NextPage } from "next";
 
 const Home: NextPage = () => {
-  return <div>asd</div>;
+  return (
+    <>
+      <Header title="니콘내콘" leftIcon="hamburger" />
+    </>
+  );
 };
 
 export default Home;
