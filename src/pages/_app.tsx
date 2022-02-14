@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Header />
+      <Header title="땡철이" />
       <Component {...pageProps} />
     </ThemeProvider>
   );
