@@ -9,6 +9,10 @@ const GlobalStyles = createGlobalStyle`
     height: 100%;
     }
 
+    body {
+      background-color: #ddd;
+    }
+
     * {
     box-sizing: border-box;
     }

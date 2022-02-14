@@ -1,21 +1,26 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 
-function Layout() {
+interface AppLayoutProps {
+  children: ReactNode;
+}
+
+function AppLayout({ children }: AppLayoutProps) {
   return (
     <Container>
-      <MainLayout>Main</MainLayout>
+      <MainLayout>{children}</MainLayout>
     </Container>
   );
 }
 
-export default Layout;
+export default AppLayout;
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   height: 100vh;
   padding: 0;
+  margin-top: 59px;
 `;
 
 const MainLayout = styled.div`

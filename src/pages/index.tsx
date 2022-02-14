@@ -1,10 +1,11 @@
+import Header from "components/common/Header";
 import type { NextPage } from "next";
-import Layout from "components/Layout";
+
 const Home: NextPage = () => {
   return (
-    <div>
-      <Layout />
-    </div>
+    <>
+      <Header title="니콘내콘" leftIcon="hamburger" />
+    </>
   );
 };
 

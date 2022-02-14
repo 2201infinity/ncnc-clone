@@ -16,17 +16,23 @@ export const fontSize = {
   smallText: "12px",
 };
 
+export const zIndexes = {
+  header: 50,
+};
+
 export const breakPoint = {
   mobile: 672,
 };
 
 export type ColorsTypes = typeof colors;
 export type FontSizeTypes = typeof fontSize;
+export type ZindexedTypes = typeof zIndexes;
 export type breakPointTypes = typeof breakPoint;
 
 const theme: DefaultTheme = {
   colors,
   fontSize,
+  zIndexes,
   breakPoint,
 };
 
