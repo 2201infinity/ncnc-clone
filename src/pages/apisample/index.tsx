@@ -1,8 +1,6 @@
-import type { InferGetServerSidePropsType, NextPage } from "next";
-
 import { GetServerSideProps } from "next";
-import { FAQCont } from "src/types/response";
-import { getFAQList } from "src/utils/api";
+import { FAQCont, Qa } from "types/response";
+import { getFAQList } from "utils/api";
 
 interface ApiSampleProps {
   data: FAQCont;
@@ -12,7 +10,7 @@ const ApiSample = ({ data }: ApiSampleProps): JSX.Element => {
   console.log(data);
   return (
     <>
-      {data.qas.map((d: any) => {
+      {data.qas.map((d: Qa) => {
         const { answer, id, question } = d;
         return (
           <div key={id}>
