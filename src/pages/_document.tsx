@@ -36,7 +36,19 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="ko">
-        <Head>{/** 폰트 넣는 곳! */}</Head>
+        <Head>
+          <meta charSet="utf-8" />
+          <link rel="icon" href="/favicon.png" />
+          <meta property="og:title" content="니콘내콘" />
+          <meta property="og:description" content="니콘내콘 클론코딩" />
+          <meta name="description" content="니콘내콘 클론 코딩" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+            rel="stylesheet"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />
