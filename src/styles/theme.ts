@@ -16,12 +16,18 @@ export const fontSize = {
   smallText: "12px",
 };
 
+export const breakPoint = {
+  mobile: 672,
+};
+
 export type ColorsTypes = typeof colors;
 export type FontSizeTypes = typeof fontSize;
+export type breakPointTypes = typeof breakPoint;
 
 const theme: DefaultTheme = {
   colors,
   fontSize,
+  breakPoint,
 };
 
 export default theme;
