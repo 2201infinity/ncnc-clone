@@ -1,5 +1,7 @@
 import React, { ReactElement } from "react";
 import styled, { css } from "styled-components";
+// import { ReactComponent as BackIcon } from "icons/backIcon.svg";
+// import { ReactComponent as CloseIcon } from "icons/closeIcon.svg";
 
 interface IStyledButtonProps {
   variant: "primary" | "secondary";
@@ -12,7 +14,7 @@ interface IStyledButtonProps {
 interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     IStyledButtonProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 function Button({
@@ -25,16 +27,17 @@ function Button({
   ...rest
 }: IButtonProps): ReactElement {
   return (
-    <StyledButton
-      variant={variant}
-      width={width}
-      height={height}
-      borderRadius={borderRadius}
-      {...rest}
-      buttonType={buttonType}
-    >
-      {children}
-    </StyledButton>
+    <>
+      <StyledButton
+        variant={variant}
+        width={width}
+        height={height}
+        borderRadius={borderRadius}
+        {...rest}
+      >
+        {buttonType === "close" ? "X" : buttonType === "back" ? "<" : children}
+      </StyledButton>
+    </>
   );
 }
 
@@ -45,6 +48,7 @@ const StyledButton = styled.button<IStyledButtonProps>`
   height: ${({ height }) => height};
   border-radius: ${({ borderRadius }) => borderRadius};
   cursor: pointer;
+  font-size: 15px;
 
   ${({ variant }) => {
     switch (variant) {

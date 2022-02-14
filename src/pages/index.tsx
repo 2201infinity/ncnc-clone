@@ -4,7 +4,9 @@ import Button from "components/common/Button";
 const Home: NextPage = () => {
   return (
     <div>
-      <Button variant="primary">버튼</Button>
+      <Button variant="primary" buttonType="close">
+        버튼이다
+      </Button>
     </div>
   );
 };
