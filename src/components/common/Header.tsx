@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import styled, { css } from "styled-components";
+import Button from "./Button";
 
 interface HeaderProps {
   title?: string;
@@ -11,6 +12,7 @@ interface HeaderProps {
 function Header({ title, closeIcon, leftIcon }: HeaderProps) {
   return (
     <HeaderContainer>
+      <Button buttonType="close" width="16px" height="16px"></Button>
       <LeftBox>
         <HeaderIconButtonStyled>버튼</HeaderIconButtonStyled>
       </LeftBox>

@@ -8,7 +8,7 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({ categoryList }) => {
-  console.log(categoryList);
+  // console.log(categoryList);
   return (
     <>
       <Header title="니콘내콘" leftIcon="hamburger" />

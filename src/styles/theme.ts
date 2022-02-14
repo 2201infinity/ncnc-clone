@@ -8,6 +8,8 @@ export const colors = {
   background: "#f1f3f4",
   border: "#dddddd",
   buttonDisabled: "#ccc",
+  buttonHover: "#ff8b84",
+  buttonIconHover: "#dddddd",
 };
 
 export const fontSize = {
