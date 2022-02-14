@@ -1,14 +1,15 @@
 import React, { ReactElement } from "react";
 import styled, { css } from "styled-components";
-// import { ReactComponent as BackIcon } from "icons/backIcon.svg";
-// import { ReactComponent as CloseIcon } from "icons/closeIcon.svg";
+import Image from "next/image";
+import BackIcon from "icons/BackIcon";
+import CloseIcon from "icons/CloseIcon";
 
 interface IStyledButtonProps {
   variant: "primary" | "secondary";
   width?: string;
   height?: string;
   borderRadius?: string;
-  buttonType?: "close" | "back";
+  buttonType?: "close" | "back"; // @Note: 닫기 버튼은 close, 뒤로가기는 back으로, 둘다 쓰지 않고 children만 주기
 }
 
 interface IButtonProps
@@ -35,7 +36,13 @@ function Button({
         borderRadius={borderRadius}
         {...rest}
       >
-        {buttonType === "close" ? "X" : buttonType === "back" ? "<" : children}
+        {buttonType === "close" ? (
+          <CloseIcon />
+        ) : buttonType === "back" ? (
+          <BackIcon />
+        ) : (
+          children
+        )}
       </StyledButton>
     </>
   );
