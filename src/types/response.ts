@@ -1,6 +1,6 @@
 // 대분류 리스트 타입
 export interface MainCategoryList {
-  conCategory1s: MainCategory[];
+  conCategory1s: MainCategory[]; // map 돌릴때 타입
 }
 
 // 땡처리 리스트 타입
