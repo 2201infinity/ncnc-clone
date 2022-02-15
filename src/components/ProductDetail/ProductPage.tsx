@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Option, ProductDetailConItem } from "types/response";
 import { getProductDetail } from "utils/api";
 import Button from "../common/Button";
@@ -31,35 +31,50 @@ function ProductPage() {
   };
 
   return (
-    <>
-      <NoticeWrapper>
-        <BeforeNotice>유의사항</BeforeNotice>
+    <Wrapper>
+      <NoticeWrapper modalOpen={modalOpen}>
         {notice?.map((item: string, index: number) => (
           <Notice key={`item_${index}`}>{item}</Notice>
         ))}
       </NoticeWrapper>
+
       <ModalWrapper>
         <OptionModal
           isModal={modalOpen}
           options={options}
           discountRate={productDetail?.discountRate}
         ></OptionModal>
-        <Button onClick={() => setModalOpen((prev) => !prev)}>모달 버튼</Button>
+        <Footer>
+          <Button onClick={() => setModalOpen((prev) => !prev)}>
+            모달 버튼
+          </Button>
+        </Footer>
       </ModalWrapper>
-    </>
+    </Wrapper>
   );
 }
 
 export default ProductPage;
-
-const ModalWrapper = styled.div``;
-const NoticeWrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.white};
+const Wrapper = styled.div`
+  width: 375px;
 `;
-const BeforeNotice = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.text};
-  font-weight: 600;
+const ModalWrapper = styled.div``;
+const NoticeWrapper = styled.div<{ modalOpen: boolean }>`
+  background-color: ${({ theme }) => theme.colors.white};
+  ${({ modalOpen }) => {
+    switch (modalOpen) {
+      case true:
+        return css`
+          background-color: rgba(0, 0, 0, 0.4);
+        `;
+    }
+  }};
 `;
 const Notice = styled.div`
   font-size: ${({ theme }) => theme.fontSize.smallText};
+`;
+
+const Footer = styled.div`
+  position: fixed;
+  bottom: 0;
 `;

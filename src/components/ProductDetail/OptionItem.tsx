@@ -14,9 +14,11 @@ function OptionItem({
 }: IOptionProps): ReactElement {
   return (
     <OptionContainer>
-      <ExpirationPeriod>유효기간: {expireAt} </ExpirationPeriod>
-      <DiscountPrice>할인가: {sellingPrice}원</DiscountPrice>
-      <DiscountRate>할인율: {discountRate}%</DiscountRate>
+      <OptionInfo>
+        <ExpirationPeriod>유효기간: {expireAt} </ExpirationPeriod>
+        <DiscountPrice>할인가: {sellingPrice}원</DiscountPrice>
+        <DiscountRate>할인율: {discountRate}%</DiscountRate>
+      </OptionInfo>
     </OptionContainer>
   );
 }
@@ -26,6 +28,19 @@ export default OptionItem;
 const OptionContainer = styled.div`
   border: 1px solid gray;
 `;
-const ExpirationPeriod = styled.div``;
-const DiscountPrice = styled.div``;
-const DiscountRate = styled.div``;
+const OptionInfo = styled.div`
+  margin-left: 17px;
+  height: 61px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+const ExpirationPeriod = styled.div`
+  font-size: ${({ theme }) => theme.fontSize.smallText};
+`;
+const DiscountPrice = styled.div`
+  font-size: ${({ theme }) => theme.fontSize.smallText};
+`;
+const DiscountRate = styled.div`
+  font-size: ${({ theme }) => theme.fontSize.smallText};
+`;

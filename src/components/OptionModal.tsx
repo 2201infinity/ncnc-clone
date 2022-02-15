@@ -16,29 +16,40 @@ function OptionModal({
   discountRate,
 }: IOptionModalProps): ReactElement {
   return (
-    <>
-      <Modal height="200px" isModal={isModal}>
-        <ModalInner>
-          <BeforeOption>옵션 선택하기</BeforeOption>
-          {options?.map((item) => (
-            <OptionItem
-              key={item.expireAt}
-              expireAt={item.expireAt}
-              count={item.count}
-              sellingPrice={item.sellingPrice}
-              discountRate={discountRate}
-            ></OptionItem>
-          ))}
-          {(console.log(options), console.log(discountRate))}
-        </ModalInner>
-      </Modal>
-    </>
+    <Modal isModal={isModal}>
+      <BeforeOption>
+        <Span>옵션 선택하기</Span>
+      </BeforeOption>
+      <OptionList>
+        {options?.map((item) => (
+          <OptionItem
+            key={item.expireAt}
+            expireAt={item.expireAt}
+            count={item.count}
+            sellingPrice={item.sellingPrice}
+            discountRate={discountRate}
+          ></OptionItem>
+        ))}
+      </OptionList>
+    </Modal>
   );
 }
 
 export default OptionModal;
 
-const ModalInner = styled.div``;
-const BeforeOption = styled.span`
+const BeforeOption = styled.div`
+  height: 49px;
+  display: flex;
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors.background};
+`;
+const Span = styled.div`
   font-size: ${({ theme }) => theme.fontSize.text};
+  font-weight: 600;
+  margin-left: 17px;
+`;
+const OptionList = styled.div`
+  height: 183px;
+  background-color: ${({ theme }) => theme.colors.white};
+  overflow-y: scroll;
 `;

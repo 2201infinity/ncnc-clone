@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 interface IModalStyled {
   width?: string;
-  height: string;
+  height?: string;
   isModal: boolean;
 }
 
@@ -12,19 +12,17 @@ interface IModalProps extends IModalStyled {
 }
 function Modal({
   width = "375px",
-  height,
+  height = "241px",
   isModal,
   children,
   ...rest
 }: IModalProps): ReactElement {
   return (
-    <>
-      <ModalContainer {...rest}>
-        <ModalInner width={width} height={height} isModal={isModal}>
-          {children}
-        </ModalInner>
-      </ModalContainer>
-    </>
+    <ModalContainer {...rest}>
+      <ModalInner width={width} height={height} isModal={isModal}>
+        {children}
+      </ModalInner>
+    </ModalContainer>
   );
 }
 
@@ -46,9 +44,7 @@ const ModalInner = styled.div<IModalStyled>`
         return css`
           position: absolute;
           z-index: 9999;
-          top: 100;
-          bottom: 0;
-          background-color: #f1f3f4;
+          bottom: 80px;
         `;
       case false:
         return css`
