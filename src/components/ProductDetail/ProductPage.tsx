@@ -59,9 +59,7 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
 }
 
 export default ProductPage;
-const Wrapper = styled.div`
-  width: 375px;
-`;
+const Wrapper = styled.div``;
 const ModalWrapper = styled.div``;
 const NoticeWrapper = styled.div<{ modalOpen: boolean }>`
   background-color: ${({ theme }) => theme.colors.white};
