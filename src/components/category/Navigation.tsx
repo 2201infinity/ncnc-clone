@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { MainCategory } from "types/response";
+import { MainCategory } from "types/category";
 
 interface NavigationProps {
   item: MainCategory[];

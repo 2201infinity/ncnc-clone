@@ -1,9 +1,9 @@
 import { GetServerSideProps, NextPage } from "next";
-import { BrandDetailConItem } from "types/response";
 import { getBrandDetail, getBrandName } from "utils/api";
 import Header from "components/common/Header";
 import ProductCardList from "components/common/ProductCardList";
 import styled from "styled-components";
+import { BrandDetailConItem } from "types/brand";
 
 interface BrandDetailProps {
   brandName: string;

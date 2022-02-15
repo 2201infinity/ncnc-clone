@@ -1,11 +1,11 @@
 import { GetServerSideProps, NextPage } from "next";
-import { FAQCont } from "types/response";
 import { getFAQList } from "utils/api";
 import styled from "styled-components";
 import Header from "components/common/Header";
 import InfoBox from "components/contacts/InfoBox";
 import FAQ from "components/contacts/FAQ";
 import React, { useState, useEffect } from "react";
+import { FAQCont } from "types/faq";
 
 const Contacts: NextPage<FAQCont> = ({ qas }) => {
   const [qaList, setQaList] = useState(qas);

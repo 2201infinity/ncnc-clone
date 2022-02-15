@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import styled from "styled-components";
-import { Option } from "types/response";
+import { Option } from "types/product";
 import { comma } from "utils/comma";
 import { dateFormat } from "utils/date";
 

@@ -2,7 +2,7 @@ import { ProductCardItem } from "components/common/ProductCardItem";
 import PencilIcon from "icons/PencilIcon";
 import React, { ReactElement, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-import { Option, ProductDetailConItem } from "types/response";
+import { Option, ProductDetailConItem } from "types/category";
 import { getProductDetail } from "utils/api";
 import { comma } from "utils/comma";
 import { dateFormat } from "utils/date";

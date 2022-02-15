@@ -4,8 +4,6 @@ import GlobalStyles from "styles/GlobalStyles";
 import { ThemeProvider } from "styled-components";
 import theme from "styles/theme";
 import AppLayout from "components/common/AppLayout";
-import { Provider } from "react-redux";
-import store from "stores/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -16,9 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <AppLayout>
-          <Provider store={store}>
-            <Component {...pageProps} />
-          </Provider>
+          <Component {...pageProps} />
         </AppLayout>
       </ThemeProvider>
     </>
