@@ -6,24 +6,27 @@ import UpIcon from "icons/UpIcon";
 
 interface QuestionProps {
   item: Qa;
+  onSelectAnswer: boolean;
+  handleSelectAnswer: () => void;
 }
 
-const QuestionBox = ({ item }: QuestionProps) => {
+const QuestionBox = ({
+  item,
+  onSelectAnswer,
+  handleSelectAnswer,
+}: QuestionProps) => {
   const { answer, question } = item;
-  const [onAnswer, setOnAnswer] = useState(false);
-  const handleAnswer = () => {
-    setOnAnswer(!onAnswer);
-  };
+
   return (
     <Container>
-      <Box onClick={handleAnswer}>
+      <Box onClick={handleSelectAnswer}>
         <Question>
           <span>Q.</span>
           <p>{question}</p>
         </Question>
-        {onAnswer === true ? <UpIcon /> : <DownIcon />}
+        {onSelectAnswer ? <UpIcon /> : <DownIcon />}
       </Box>
-      {onAnswer === true && <Answer>{answer}</Answer>}
+      {onSelectAnswer && <Answer>{answer}</Answer>}
     </Container>
   );
 };
@@ -45,6 +48,7 @@ const Box = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 17px;
+  border: 1px solid ${({ theme }) => theme.colors.background};
 `;
 
 const Question = styled.div`

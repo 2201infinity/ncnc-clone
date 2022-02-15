@@ -8,12 +8,17 @@ import { getFAQType } from "utils/api";
 interface FAQProps {
   data: Qa[];
   onToggleSelect: (id: number) => void;
+  onSelectAnswer: (id: number | null) => void;
   qaId: number;
 }
 
 const FAQ: React.FC<FAQProps> = ({ data, onToggleSelect, qaId }) => {
   const [qaTypes, setQaTypes] = useState<QaType[]>();
+  const [isSelectedId, setIsSelectedId] = useState(0);
 
+  const handleSelectAnswer = (id: number) => {
+    setIsSelectedId(id);
+  };
   useEffect(() => {
     const getData = async () => {
       const response = await getFAQType();
@@ -42,7 +47,12 @@ const FAQ: React.FC<FAQProps> = ({ data, onToggleSelect, qaId }) => {
       <GrayBox></GrayBox>
 
       {data.map((item) => (
-        <QuestionBox item={item} key={item.id} />
+        <QuestionBox
+          item={item}
+          key={item.id}
+          handleSelectAnswer={() => handleSelectAnswer(item.id)}
+          onSelectAnswer={isSelectedId === item.id}
+        />
       ))}
     </Container>
   );
@@ -55,6 +65,7 @@ const Container = styled.div`
 
   h3 {
     font-size: ${({ theme }) => theme.fontSize.title};
+    font-weight: 500;
     margin-bottom: 7px;
   }
 `;
