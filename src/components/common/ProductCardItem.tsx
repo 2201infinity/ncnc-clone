@@ -7,6 +7,7 @@ import {
   ClearanceListConItems,
   ProductDetailConItem,
 } from "types/response";
+import { comma } from "utils/comma";
 
 interface ItemProps {
   item: BrandDetailConItem | ProductDetailConItem | ClearanceListConItems;
@@ -41,8 +42,8 @@ export const ProductCardItem = ({
         <ProductName>{name}</ProductName>
         <p>
           <DiscountRate>{discountRate}%</DiscountRate>
-          <MinSellingPrice>{minSellingPrice}원</MinSellingPrice>
-          <OriginalPrice>{originalPrice}원</OriginalPrice>
+          <MinSellingPrice>{comma(minSellingPrice)}원</MinSellingPrice>
+          <OriginalPrice>{comma(originalPrice)}원</OriginalPrice>
         </p>
       </CardDesc>
     </CardItemContainer>
