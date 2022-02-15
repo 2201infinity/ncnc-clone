@@ -24,10 +24,12 @@ const InfoContainer = styled.div`
   p {
     font-size: ${({ theme }) => theme.fontSize.text};
     margin-bottom: 3px;
+    line-height: 16.8px;
   }
 
   span {
     font-size: ${({ theme }) => theme.fontSize.text};
     color: ${({ theme }) => theme.colors.gray};
+    line-height: 16.8px;
   }
 `;
