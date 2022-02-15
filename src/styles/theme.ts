@@ -10,6 +10,7 @@ export const colors = {
   buttonDisabled: "#ccc",
   buttonHover: "#ff8b84",
   buttonIconHover: "#dddddd",
+  layoutBackground: "rgb(238, 238, 238);",
 };
 
 export const fontSize = {

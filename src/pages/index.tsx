@@ -1,32 +1,45 @@
 import Header from "components/common/Header";
 import type { NextPage } from "next";
 import { getMainCategoryList } from "utils/api";
-import { MainCategoryList } from "types/response";
-import ProductPage from "components/ProductPage";
+import { CategoryItemType, MainCategory } from "types/response";
+import styled from "styled-components";
+import GridCardList from "components/common/GridCardList";
+import { useRouter } from "next/router";
 
 interface HomeProps {
-  categoryList: MainCategoryList;
+  categoryList: MainCategory[];
 }
 
 const Home: NextPage<HomeProps> = ({ categoryList }) => {
-  // console.log(categoryList);
+  const router = useRouter();
+
+  const onClick = (item: CategoryItemType) => {
+    router.push(`categories/${item.id}`);
+  };
 
   return (
     <>
       <Header title="니콘내콘" leftIcon="hamburger" />
-      <ProductPage />
+      <CategoryListBox>
+        <GridCardList data={categoryList} onClick={onClick} />
+      </CategoryListBox>
     </>
   );
 };
 
 export const getStaticProps = async () => {
   const data = await getMainCategoryList();
-
   return {
     props: {
       categoryList: data.conCategory1s,
     },
   };
 };
+
+const CategoryListBox = styled.div`
+  padding: 17px;
+  display: block;
+  overflow: hidden;
+`;
 
 export default Home;
