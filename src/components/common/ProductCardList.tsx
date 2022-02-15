@@ -11,10 +11,9 @@ interface ProductCardListProps {
   isClickable?: boolean;
 }
 function ProductCardList({ data, isClickable }: ProductCardListProps) {
-  console.log(data);
   return (
     <>
-      {data.map((item: any) => (
+      {data?.map((item) => (
         <ProductCardItem item={item} key={item.id} isClickable={isClickable} />
       ))}
     </>
