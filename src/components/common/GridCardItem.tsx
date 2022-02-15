@@ -1,16 +1,27 @@
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
+import { CategoryItemType } from "types/response";
+import { PathValueTypes } from "utils/path";
 
-function GridCardItem() {
+interface CardItemProps {
+  item: CategoryItemType;
+  path: PathValueTypes;
+}
+
+function GridCardItem({ item, path }: CardItemProps) {
+  const { imageUrl, name, id } = item;
   return (
     <CardItemContainer>
       <CardItem>
-        <ItemLinked>
-          <ItemContent>
-            <ItemImage src="https://d1dsr05o5i286u.cloudfront.net/fefcb4d5-948a-48e7-a73c-8d7b33cdd218.jpg?w=86&h=86&f=" />
-            <ItemText>땡철이</ItemText>
-          </ItemContent>
-        </ItemLinked>
+        <Link href={`${path}/${id}`} passHref>
+          <ItemLinked>
+            <ItemContent>
+              <ItemImage src={imageUrl} />
+              <ItemText>{name}</ItemText>
+            </ItemContent>
+          </ItemLinked>
+        </Link>
       </CardItem>
     </CardItemContainer>
   );
@@ -40,6 +51,10 @@ const ItemLinked = styled.a`
 const ItemContent = styled.div`
   transform: translateZ(0);
   transition: transform 0.25s ease-out, -webkit-transform 0.25s ease-out;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const ItemImage = styled.img`

@@ -8,6 +8,7 @@ export const colors = {
   background: "#f1f3f4",
   border: "#dddddd",
   buttonDisabled: "#ccc",
+  layoutBackground: "rgb(238, 238, 238);",
 };
 
 export const fontSize = {

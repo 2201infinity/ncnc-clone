@@ -30,7 +30,7 @@ const HeaderContainer = styled.header`
   width: 100%;
   display: flex;
   height: 59px;
-  max-width: 42rem;
+  max-width: 48rem;
 `;
 
 const BoxLayout = css`
