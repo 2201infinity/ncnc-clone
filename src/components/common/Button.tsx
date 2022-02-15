@@ -1,11 +1,9 @@
 import React, { ReactElement } from "react";
 import styled, { css } from "styled-components";
-import Image from "next/image";
 import BackIcon from "icons/BackIcon";
 import CloseIcon from "icons/CloseIcon";
 
 interface IStyledButtonProps {
-  variant: "primary" | "secondary";
   width?: string;
   height?: string;
   borderRadius?: string;
@@ -19,10 +17,9 @@ interface IButtonProps
 }
 
 function Button({
-  variant,
   width = "375px",
   height = "80px",
-  borderRadius = "6px",
+  borderRadius = "0px",
   children,
   buttonType,
   ...rest
@@ -30,10 +27,10 @@ function Button({
   return (
     <>
       <StyledButton
-        variant={variant}
         width={width}
         height={height}
         borderRadius={borderRadius}
+        buttonType={buttonType}
         {...rest}
       >
         {buttonType === "close" ? (
@@ -55,27 +52,30 @@ const StyledButton = styled.button<IStyledButtonProps>`
   height: ${({ height }) => height};
   border-radius: ${({ borderRadius }) => borderRadius};
   cursor: pointer;
-  font-size: 15px;
+  font-size: ${({ theme }) => theme.fontSize.text};
 
-  ${({ variant }) => {
-    switch (variant) {
-      case "primary":
+  :disabled {
+    background-color: ${({ theme }) => theme.colors.buttonDisabled};
+    color: ${({ theme }) => theme.colors.white};
+  }
+
+  ${({ buttonType }) => {
+    switch (buttonType) {
+      case "close" || "back":
         return css`
-          /* theme 설정된 후 수정하기 */
-          background-color: #ff5757;
-          color: #ffffff;
-          border: none;
+          background-color: ${({ theme }) => theme.colors.white};
+          color: ${({ theme }) => theme.colors.black};
           &:hover {
-            background-color: #ff8b84;
+            background-color: ${({ theme }) => theme.colors.buttonIconHover};
           }
         `;
-      case "secondary":
+      default:
         return css`
-          background-color: #ff8b84;
-          color: black;
+          background-color: ${({ theme }) => theme.colors.lightRed};
+          color: ${({ theme }) => theme.colors.white};
+          border: ${({ theme }) => theme.colors.border};
           &:hover {
-            background-color: #ff5757;
-            color: #ffffff;
+            background-color: ${({ theme }) => theme.colors.buttonHover};
           }
         `;
     }

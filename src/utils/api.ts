@@ -36,7 +36,7 @@ export const getBrandAndProductList = async (conCategoryId: number) => {
 };
 
 // 상품 상세
-export const getProductDetail = async (conItemId: number) => {
+export const getProductDetail = async (conItemId: string) => {
   const response = await api.get<ProductDetail>(`con-items/${conItemId}`);
   return response.data;
 };
