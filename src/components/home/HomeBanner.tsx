@@ -190,14 +190,24 @@ function HomeBanner() {
   useEffect(() => {
     setImageStepList(
       Array.from({ length: ORIGINAL_IMAGE_LENGTH }, (_, i) => {
-        const temp =
-          currentSlide > ORIGINAL_IMAGE_LENGTH
-            ? currentSlide - ORIGINAL_IMAGE_LENGTH
-            : currentSlide;
-        return i + 1 === temp ? 1 : 0;
+        if (currentSlide < 1) {
+          return i === ORIGINAL_IMAGE_LENGTH - Math.abs(currentSlide) - 1
+            ? 1
+            : 0;
+        } else {
+          const temp =
+            currentSlide > ORIGINAL_IMAGE_LENGTH
+              ? currentSlide - ORIGINAL_IMAGE_LENGTH
+              : currentSlide;
+          return i === temp - 1 ? 1 : 0;
+        }
       })
     );
   }, [currentSlide, ORIGINAL_IMAGE_LENGTH]);
+
+  console.log("currentSlide", currentSlide);
+
+  const onMoveImage = (idx: number) => setCurrentSlide(idx);
 
   return (
     <BannerContainer imageHeight={imageHeight}>
@@ -231,7 +241,11 @@ function HomeBanner() {
       </ImageBox>
       <CircleBox>
         {imageStepList.map((item, index) => (
-          <Circle key={`Circle_${index}`} isSelected={item === 1} />
+          <Circle
+            key={`Circle_${index}`}
+            isSelected={item === 1}
+            onClick={() => onMoveImage(index + 1)}
+          />
         ))}
       </CircleBox>
     </BannerContainer>
