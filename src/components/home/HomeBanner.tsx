@@ -205,8 +205,6 @@ function HomeBanner() {
     );
   }, [currentSlide, ORIGINAL_IMAGE_LENGTH]);
 
-  console.log("currentSlide", currentSlide);
-
   const onMoveImage = (idx: number) => setCurrentSlide(idx);
 
   return (

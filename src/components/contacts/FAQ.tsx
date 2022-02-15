@@ -8,7 +8,6 @@ import { getFAQType } from "utils/api";
 interface FAQProps {
   data: Qa[];
   onToggleSelect: (id: number) => void;
-  onSelectAnswer: (id: number | null) => void;
   qaId: number;
 }
 
