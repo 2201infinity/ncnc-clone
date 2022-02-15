@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Option } from "types/response";
 import Modal from "./ProductDetail/Modal";
@@ -15,6 +15,14 @@ function OptionModal({
   options,
   discountRate,
 }: IOptionModalProps): ReactElement {
+  const [selectedOption, setSelectedOption] = useState<Option>();
+  const onClick = (item: Option) => {
+    console.log("찍");
+    console.log(item);
+  };
+  useEffect(() => {
+    console.log(selectedOption);
+  }, [selectedOption]);
   return (
     <Modal isModal={isModal}>
       <BeforeOption>
@@ -28,6 +36,7 @@ function OptionModal({
             count={item.count}
             sellingPrice={item.sellingPrice}
             discountRate={discountRate}
+            onClick={(item: Option) => onClick(item)} // 컴포넌트에서 이벤트 실행 x
           ></OptionItem>
         ))}
       </OptionList>

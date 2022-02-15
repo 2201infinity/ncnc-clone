@@ -4,6 +4,7 @@ import { Option } from "types/response";
 
 interface IOptionProps extends Option {
   discountRate?: number;
+  onClick: (item: Option) => void;
 }
 
 function OptionItem({
@@ -11,6 +12,7 @@ function OptionItem({
   count,
   sellingPrice,
   discountRate,
+  onClick,
 }: IOptionProps): ReactElement {
   return (
     <OptionContainer>
@@ -26,7 +28,7 @@ function OptionItem({
 export default OptionItem;
 
 const OptionContainer = styled.div`
-  border: 1px solid gray;
+  border: 1px solid #e5e5e5;
 `;
 const OptionInfo = styled.div`
   margin-left: 17px;
@@ -34,6 +36,7 @@ const OptionInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  cursor: pointer;
 `;
 const ExpirationPeriod = styled.div`
   font-size: ${({ theme }) => theme.fontSize.smallText};

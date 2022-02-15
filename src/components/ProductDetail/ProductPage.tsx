@@ -46,7 +46,7 @@ function ProductPage() {
         ></OptionModal>
         <Footer>
           <Button onClick={() => setModalOpen((prev) => !prev)}>
-            모달 버튼
+            {modalOpen ? "구매하기" : "옵션 선택하기"}
           </Button>
         </Footer>
       </ModalWrapper>
