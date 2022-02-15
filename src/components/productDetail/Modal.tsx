@@ -46,18 +46,12 @@ const ModalInner = styled.div<IModalStyled>`
           position: absolute;
           z-index: 9999;
           bottom: 80px;
-          animation: FadeIn 0.8s ease-in;
+          animation: FadeIn 0.4s ease-in;
         `;
       case false:
         return css`
           display: none;
-          /* position: fixed;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
           animation: FadeOut 0.8s ease-out;
-          animation-fill-mode: none; */
         `;
     }
   }};
@@ -68,7 +62,7 @@ const ModalInner = styled.div<IModalStyled>`
     }
     20% {
       opacity: 0;
-      transform: translateY(90%);
+      transform: translateY(100%);
     }
     100% {
       opacity: 1;
