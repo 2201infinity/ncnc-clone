@@ -11,6 +11,7 @@ interface IOptionModalProps {
   options?: Option[];
   discountRate?: number;
   onToggleModal: () => void;
+  onClick: (e: React.MouseEvent<HTMLDivElement>, item: Option) => void;
 }
 
 function OptionModal({
@@ -18,19 +19,8 @@ function OptionModal({
   options,
   discountRate,
   onToggleModal,
+  onClick,
 }: IOptionModalProps): ReactElement {
-  const [selectedOption, setSelectedOption] = useState<string>();
-  const onClick = (e: React.MouseEvent<HTMLDivElement>, item: Option) => {
-    const option =
-      dateFormat(item.expireAt) + " 까지 / " + comma(item.sellingPrice) + "원";
-    setSelectedOption(option);
-    onToggleModal();
-  };
-
-  useEffect(() => {
-    console.log(selectedOption);
-  }, [selectedOption]);
-
   return (
     <Modal isModal={isModal}>
       <BeforeOption>

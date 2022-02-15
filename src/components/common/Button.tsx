@@ -17,7 +17,7 @@ interface IButtonProps
 }
 
 function Button({
-  width = "375px",
+  width,
   height = "80px",
   borderRadius = "0px",
   children,
@@ -48,7 +48,7 @@ function Button({
 export default Button;
 
 const StyledButton = styled.button<IStyledButtonProps>`
-  width: ${({ width }) => width};
+  width: 100%;
   height: ${({ height }) => height};
   border-radius: ${({ borderRadius }) => borderRadius};
   cursor: pointer;
