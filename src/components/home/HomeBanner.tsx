@@ -14,22 +14,34 @@ const data = [
   },
   {
     id: 2,
-    imageUrl: "/images/bannerImage1.png",
+    imageUrl: "/images/bannerImage2.jpg",
   },
   {
     id: 3,
-    imageUrl: "/images/bannerImage1.png",
+    imageUrl: "/images/bannerImage3.jpg",
   },
 ];
 
 function HomeBanner() {
+  const [imageList, setImageList] = useState(data);
   const [isAnimation, setIsAnimation] = useState(false);
   const [isFlowing, setIsFlowing] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [touchStartClientX, setTouchStartClientX] = useState(0);
   const [touchEndClientX, setTouchEndClientX] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(1);
+  const [imageWidth, setImageWidth] = useState(0);
   const slideRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+  const ORIGINAL_IMAGE_LENGTH = data.length;
+
+  useEffect(() => {
+    setImageList([...data, ...data, ...data]);
+  }, []);
+
+  const initialFocusSlideIndex = useMemo(() => {
+    return Math.floor(imageList.length / 3);
+  }, [imageList]);
 
   const onNextSlide = useCallback(() => {
     setCurrentSlide(currentSlide + 1);
@@ -40,10 +52,27 @@ function HomeBanner() {
   }, [currentSlide]);
 
   useEffect(() => {
-    slideRef.current!.style.transform = `translateX(${
+    if (!slideRef.current) return;
+
+    if (
+      currentSlide === ORIGINAL_IMAGE_LENGTH + 1 ||
+      currentSlide * -1 === ORIGINAL_IMAGE_LENGTH - 1
+    ) {
+      setTimeout(() => {
+        setIsAnimation(false);
+        slideRef.current!.style.left = `${initialFocusSlideIndex * 672 * -1}px`;
+        setCurrentSlide(1);
+      }, 500);
+
+      setTimeout(() => {
+        setIsAnimation(true);
+      }, 600);
+    }
+
+    slideRef.current.style.transform = `translateX(${
       -672 * (currentSlide - 1)
     }px)`;
-  }, [currentSlide]);
+  }, [currentSlide, ORIGINAL_IMAGE_LENGTH, initialFocusSlideIndex]);
 
   const touchMoveDistance = useMemo(() => {
     return touchEndClientX - touchStartClientX;
@@ -81,23 +110,35 @@ function HomeBanner() {
     setIsDragging(false);
   };
 
+  useEffect(() => {
+    const onResize = () => {
+      setImageWidth(imageRef.current!.clientWidth);
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
   return (
     <BannerContainer>
       <ImageBox
         ref={slideRef}
         isAnimation={isAnimation}
-        style={{ left: touchMoveDistance }}
+        style={{ left: 672 * -1 * initialFocusSlideIndex + touchMoveDistance }}
       >
         <ImageList>
-          {data.map((item) => (
+          {imageList.map((item, index) => (
             <BannerImage
-              key={item.id}
+              ref={imageRef}
+              key={`ImageItem_${index}`}
               src={item.imageUrl}
               onDragStart={(e) => e.preventDefault()}
               onMouseDown={onMouseDown}
               onMouseMove={onMouseMove}
               onMouseOut={onMouseOut}
               onMouseUp={onMouseUp}
+              onLoad={() => console.log("Ddd")}
             />
           ))}
         </ImageList>
