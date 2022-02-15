@@ -6,24 +6,10 @@ import React, {
   useState,
 } from "react";
 import styled from "styled-components";
-
-const data = [
-  {
-    id: 1,
-    imageUrl: "/images/bannerImage1.png",
-  },
-  {
-    id: 2,
-    imageUrl: "/images/bannerImage2.jpg",
-  },
-  {
-    id: 3,
-    imageUrl: "/images/bannerImage3.jpg",
-  },
-];
+import bannerImageList from "./BannerImageList";
 
 function HomeBanner() {
-  const [imageList, setImageList] = useState(data);
+  const [imageList, setImageList] = useState(bannerImageList);
   const [isAnimation, setIsAnimation] = useState(false);
   const [isFlowing, setIsFlowing] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
@@ -32,14 +18,16 @@ function HomeBanner() {
   const [currentSlide, setCurrentSlide] = useState(1);
   const slideRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
-  const ORIGINAL_IMAGE_LENGTH = data.length;
+  const ORIGINAL_IMAGE_LENGTH = bannerImageList.length;
   const [imageSize, setImageSize] = useState({
     imageWidth: 0,
     imageHeight: 0,
   });
 
+  const SlideMoveCount = 1;
+
   const [imageStepList, setImageStepList] = useState(
-    Array.from({ length: data.length }, (_, i) => {
+    Array.from({ length: ORIGINAL_IMAGE_LENGTH }, (_, i) => {
       return i === 0 ? 1 : 0;
     })
   );
@@ -47,7 +35,7 @@ function HomeBanner() {
   const { imageHeight, imageWidth } = imageSize;
 
   useEffect(() => {
-    setImageList([...data, ...data, ...data]);
+    setImageList([...bannerImageList, ...bannerImageList, ...bannerImageList]);
   }, []);
 
   useEffect(() => {
@@ -70,11 +58,11 @@ function HomeBanner() {
   }, [imageList]);
 
   const onNextSlide = useCallback(() => {
-    setCurrentSlide(currentSlide + 1);
+    setCurrentSlide(currentSlide + SlideMoveCount);
   }, [currentSlide]);
 
   const onPrevSlide = useCallback(() => {
-    setCurrentSlide(currentSlide - 1);
+    setCurrentSlide(currentSlide - SlideMoveCount);
   }, [currentSlide]);
 
   useEffect(() => {
@@ -185,7 +173,7 @@ function HomeBanner() {
     let intervalId: NodeJS.Timer;
     if (isFlowing) {
       intervalId = setInterval(() => {
-        setCurrentSlide(currentSlide + 1);
+        setCurrentSlide(currentSlide + SlideMoveCount);
       }, 3500);
     }
 
@@ -201,15 +189,15 @@ function HomeBanner() {
 
   useEffect(() => {
     setImageStepList(
-      Array.from({ length: data.length }, (_, i) => {
+      Array.from({ length: ORIGINAL_IMAGE_LENGTH }, (_, i) => {
         const temp =
-          currentSlide > data.length
-            ? currentSlide - data.length
+          currentSlide > ORIGINAL_IMAGE_LENGTH
+            ? currentSlide - ORIGINAL_IMAGE_LENGTH
             : currentSlide;
         return i + 1 === temp ? 1 : 0;
       })
     );
-  }, [currentSlide]);
+  }, [currentSlide, ORIGINAL_IMAGE_LENGTH]);
 
   return (
     <BannerContainer imageHeight={imageHeight}>

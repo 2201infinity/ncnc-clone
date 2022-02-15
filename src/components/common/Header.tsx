@@ -1,6 +1,7 @@
 import BackIcon from "icons/BackIcon";
 import CloseIcon from "icons/CloseIcon";
 import HambugerIcon from "icons/HambugerIcon";
+import { useRouter } from "next/router";
 import React from "react";
 import styled, { css } from "styled-components";
 
@@ -19,6 +20,7 @@ function Header({
   onClickLeft,
   onClickRight,
 }: HeaderProps) {
+  const router = useRouter();
   const iconPrint = (icon: "hamburger" | "back" | "close") => {
     switch (icon) {
       case "hamburger":
@@ -33,7 +35,9 @@ function Header({
   return (
     <HeaderContainer>
       <LeftBox>
-        <HeaderIconButtonStyled onClick={onClickLeft}>
+        <HeaderIconButtonStyled
+          onClick={onClickLeft ? () => onClickLeft() : () => router.back()}
+        >
           {leftIcon && iconPrint(leftIcon)}
         </HeaderIconButtonStyled>
       </LeftBox>
