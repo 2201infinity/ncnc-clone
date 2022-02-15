@@ -162,3 +162,5 @@ export interface Qa {
   question: string;
   answer: string;
 }
+
+export type CategoryItemType = MainCategory | BrandAndProductListConCategory2;
