@@ -22,7 +22,7 @@ function OptionModal({
   onClick,
 }: IOptionModalProps): ReactElement {
   return (
-    <Modal isModal={isModal}>
+    <Modal isModal={isModal} width="100%">
       <BeforeOption>
         <Span>옵션 선택하기</Span>
       </BeforeOption>
