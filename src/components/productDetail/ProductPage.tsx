@@ -2,10 +2,9 @@ import { ProductCardItem } from "components/common/ProductCardItem";
 import PencilIcon from "icons/PencilIcon";
 import React, { ReactElement, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-import { Option, ProductDetailConItem } from "types/category";
+import { Option, ProductDetailConItem } from "types/product";
 import { getProductDetail } from "utils/api";
 import { comma } from "utils/comma";
-import { dateFormat } from "utils/date";
 import Button from "../common/Button";
 import OptionModal from "./OptionModal";
 
@@ -25,6 +24,7 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
       try {
         const data = await getProductDetail(itemId);
         setProductDetail(data.conItem);
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -152,7 +152,6 @@ const SelectedOptionBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  position: fixed;
   bottom: 80px;
 `;
 

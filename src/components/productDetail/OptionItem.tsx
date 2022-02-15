@@ -2,7 +2,6 @@ import { ReactElement } from "react";
 import styled from "styled-components";
 import { Option } from "types/product";
 import { comma } from "utils/comma";
-import { dateFormat } from "utils/date";
 
 interface IOptionProps extends Option {
   discountRate?: number;
@@ -20,7 +19,7 @@ function OptionItem({
         <LeftInfoWrapper>
           <ExpirationPeriod>
             <Label>유효기간 </Label>
-            {dateFormat(expireAt)} 까지
+            {expireAt} 까지
           </ExpirationPeriod>
           <DiscountPrice>
             <Label>할인가 </Label>
