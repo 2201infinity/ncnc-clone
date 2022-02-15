@@ -55,19 +55,7 @@ export interface ClearanceListConItems {
   isOnlyAccount: number;
   conCategory2Id: number;
   imageUrl: string;
-  conCategory2: ClearanceListConCategory2;
-}
-
-export interface ClearanceListConCategory2 {
-  id: number;
-  name: string;
-  adminUserId: number;
-  priority: number;
-  createdAt: string;
-  conCategory1Id: number;
-  info: any;
-  imageUrl: string;
-  conCategory1: ClearanceListConCategory1;
+  conCategory2: ConCategory2;
 }
 
 export interface ClearanceListConCategory1 {
@@ -119,11 +107,11 @@ export interface ProductDetailConItem {
   isOnlyAccount: number;
   conCategory2Id: number;
   imageUrl: string;
-  conCategory2: ProductDetailConCategory2;
+  conCategory2: ConCategory2;
   options: Option[];
 }
 
-export interface ProductDetailConCategory2 {
+export interface ConCategory2 {
   id: number;
   name: string;
   adminUserId: number;
@@ -163,4 +151,34 @@ export interface Qa {
   answer: string;
 }
 
+export interface BrandDetail {
+  conItems: BrandDetailConItem[];
+}
+
+export interface BrandDetailConItem {
+  id: number;
+  name: string;
+  originalPrice: number;
+  minSellingPrice: number;
+  ncSellingPrice: number;
+  information?: string;
+  tip: string;
+  warning: string;
+  discountRate: number;
+  info?: string;
+  isOnlyAccount: number;
+  conCategory2Id: number;
+  imageUrl: string;
+}
+
+export interface BrandName {
+  conCategory2: BrandNameConCategory2;
+}
+
+export interface BrandNameConCategory2 {
+  id: number;
+  name: string;
+  imageUrl: string;
+  conCategory1Id: number;
+}
 export type CategoryItemType = MainCategory | BrandAndProductListConCategory2;
