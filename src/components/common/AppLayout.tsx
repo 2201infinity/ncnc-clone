@@ -26,5 +26,5 @@ const Container = styled.div`
 const MainLayout = styled.div`
   width: 100%;
   max-width: ${({ theme }) => theme.breakPoint.mobile}px;
-  background-color: ${({ theme }) => theme.colors.lightRed};
+  background-color: ${({ theme }) => theme.colors.layoutBackground};
 `;
