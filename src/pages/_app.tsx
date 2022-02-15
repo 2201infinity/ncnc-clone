@@ -9,14 +9,19 @@ import store from "stores/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <AppLayout>
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
-      </AppLayout>
-    </ThemeProvider>
+    <>
+      <Head>
+        <title>니콘내콘</title>
+      </Head>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <AppLayout>
+          <Provider store={store}>
+            <Component {...pageProps} />
+          </Provider>
+        </AppLayout>
+      </ThemeProvider>
+    </>
   );
 }
 
