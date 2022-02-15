@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -25,7 +26,7 @@ const data = [
 function HomeBanner() {
   const [imageList, setImageList] = useState(data);
   const [isAnimation, setIsAnimation] = useState(false);
-  const [isFlowing, setIsFlowing] = useState(false);
+  const [isFlowing, setIsFlowing] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
   const [touchStartClientX, setTouchStartClientX] = useState(0);
   const [touchEndClientX, setTouchEndClientX] = useState(0);
@@ -37,6 +38,21 @@ function HomeBanner() {
 
   useEffect(() => {
     setImageList([...data, ...data, ...data]);
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => {
+      setIsAnimation(false);
+      setIsFlowing(false);
+      setTimeout(() => {
+        setIsFlowing(true);
+        setIsAnimation(true);
+      }, 500);
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   const initialFocusSlideIndex = useMemo(() => {
@@ -60,7 +76,9 @@ function HomeBanner() {
     ) {
       setTimeout(() => {
         setIsAnimation(false);
-        slideRef.current!.style.left = `${initialFocusSlideIndex * 672 * -1}px`;
+        slideRef.current!.style.left = `${
+          initialFocusSlideIndex * imageWidth * -1
+        }px`;
         setCurrentSlide(1);
       }, 500);
 
@@ -70,19 +88,20 @@ function HomeBanner() {
     }
 
     slideRef.current.style.transform = `translateX(${
-      -672 * (currentSlide - 1)
+      -imageWidth * (currentSlide - 1)
     }px)`;
-  }, [currentSlide, ORIGINAL_IMAGE_LENGTH, initialFocusSlideIndex]);
+  }, [currentSlide, ORIGINAL_IMAGE_LENGTH, initialFocusSlideIndex, imageWidth]);
 
   const touchMoveDistance = useMemo(() => {
     return touchEndClientX - touchStartClientX;
   }, [touchEndClientX, touchStartClientX]);
 
   const moveRange = useMemo(() => {
-    return Math.floor(672 / 5);
-  }, []);
+    return Math.floor(imageWidth / 5);
+  }, [imageWidth]);
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    setIsFlowing(false);
     setTouchStartClientX(e.clientX);
     setTouchEndClientX(e.clientX);
     setIsAnimation(false);
@@ -110,6 +129,9 @@ function HomeBanner() {
     setIsDragging(false);
   };
 
+  const onMouseEnter = () => setIsFlowing(false);
+  const onMouseLeave = () => setIsFlowing(true);
+
   useEffect(() => {
     const onResize = () => {
       setImageWidth(imageRef.current!.clientWidth);
@@ -120,12 +142,36 @@ function HomeBanner() {
     };
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsAnimation(true);
+    }, 500);
+  }, []);
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timer;
+    if (isFlowing) {
+      intervalId = setInterval(() => {
+        setCurrentSlide(currentSlide + 1);
+      }, 3500);
+    }
+
+    return () => clearTimeout(intervalId);
+  }, [isFlowing, currentSlide]);
+
+  console.log(
+    "dd",
+    imageWidth * -1 * initialFocusSlideIndex + touchMoveDistance
+  );
+
   return (
     <BannerContainer>
       <ImageBox
         ref={slideRef}
         isAnimation={isAnimation}
-        style={{ left: 672 * -1 * initialFocusSlideIndex + touchMoveDistance }}
+        style={{
+          left: imageWidth * -1 * initialFocusSlideIndex + touchMoveDistance,
+        }}
       >
         <ImageList>
           {imageList.map((item, index) => (
@@ -138,7 +184,9 @@ function HomeBanner() {
               onMouseMove={onMouseMove}
               onMouseOut={onMouseOut}
               onMouseUp={onMouseUp}
-              onLoad={() => console.log("Ddd")}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+              onLoad={() => setImageWidth(imageRef.current!.clientWidth)}
             />
           ))}
         </ImageList>
