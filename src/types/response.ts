@@ -18,16 +18,6 @@ export interface ProductDetail {
   conItem: ProductDetailConItem;
 }
 
-// FAQ 타입
-export interface FAQType {
-  qaTypes: QaType[];
-}
-
-// FAQ 내용 타입
-export interface FAQCont {
-  qas: Qa[];
-}
-
 export interface MainCategory {
   id: number;
   name: string;
@@ -137,18 +127,6 @@ export interface Option {
   expireAt: string;
   count: number;
   sellingPrice: number;
-}
-
-export interface QaType {
-  id: number;
-  key: string;
-  name: string;
-}
-
-export interface Qa {
-  id: number;
-  question: string;
-  answer: string;
 }
 
 export interface BrandDetail {

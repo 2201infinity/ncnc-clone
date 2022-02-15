@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Qa } from "types/response";
 import DownIcon from "icons/DownIcon";
 import UpIcon from "icons/UpIcon";
+import { Qa } from "types/faq";
 
 interface QuestionProps {
   item: Qa;
