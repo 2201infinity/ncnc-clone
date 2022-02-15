@@ -86,13 +86,20 @@ const GrayBox = styled.div`
 const StyledButton = styled(Button)<{ isSelected: boolean }>`
   background: transparent;
   border-radius: 0;
+  color: ${({ theme }) => theme.colors.gray};
+  font-weight: 500;
+
   &:hover {
     background-color: transparent;
-    color: ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) => theme.colors.gray};
   }
   ${({ isSelected }) =>
     isSelected &&
     css`
       border-bottom: 2px solid ${({ theme }) => theme.colors.lightRed};
+      color: ${({ theme }) => theme.colors.lightRed};
+      &:hover {
+        color: ${({ theme }) => theme.colors.lightRed};
+      }
     `}
 `;

@@ -53,6 +53,7 @@ const Box = styled.div`
 
 const Question = styled.div`
   display: flex;
+  cursor: pointer;
 `;
 
 const Answer = styled.div`
