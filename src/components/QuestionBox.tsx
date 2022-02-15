@@ -31,6 +31,7 @@ const QuestionBox = ({ item }: QuestionProps) => {
 export default QuestionBox;
 
 const Container = styled.div`
+  background-color: ${({ theme }) => theme.colors.white};
   span {
     font-size: ${({ theme }) => theme.fontSize.title};
     color: ${({ theme }) => theme.colors.lightRed};
