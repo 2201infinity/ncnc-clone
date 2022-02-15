@@ -14,10 +14,13 @@ interface FAQProps {
 
 const FAQ: React.FC<FAQProps> = ({ data, onToggleSelect, qaId }) => {
   const [qaTypes, setQaTypes] = useState<QaType[]>();
-  const [isSelectedId, setIsSelectedId] = useState(0);
+  const [isSelectedId, setIsSelectedId] = useState<number | null>();
 
   const handleSelectAnswer = (id: number) => {
     setIsSelectedId(id);
+    if (id === isSelectedId) {
+      setIsSelectedId(null);
+    }
   };
   useEffect(() => {
     const getData = async () => {
