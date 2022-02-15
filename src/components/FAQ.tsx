@@ -37,7 +37,6 @@ const FAQ: React.FC<FAQProps> = ({ data, onToggleSelect, qaId }) => {
         {qaTypes?.map((item) => (
           <StyledButton
             key={item.id}
-            variant="secondary"
             width="50%"
             height="40px"
             onClick={() => onToggleSelect(item.id)}
