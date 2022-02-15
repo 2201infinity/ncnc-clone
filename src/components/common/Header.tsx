@@ -6,17 +6,27 @@ interface HeaderProps {
   title?: string;
   leftIcon?: "hamburger" | "back";
   closeIcon?: boolean;
+  onClickLeft?: () => void;
+  onClickRight?: () => void;
 }
 
-function Header({ title, closeIcon, leftIcon }: HeaderProps) {
+function Header({
+  title,
+  closeIcon,
+  leftIcon,
+  onClickLeft,
+  onClickRight,
+}: HeaderProps) {
   return (
     <HeaderContainer>
       <LeftBox>
-        <HeaderIconButtonStyled>버튼</HeaderIconButtonStyled>
+        <HeaderIconButtonStyled onClick={onClickLeft}>
+          버튼
+        </HeaderIconButtonStyled>
       </LeftBox>
       <Title>{title}</Title>
       <RightBox>
-        <HeaderIconButtonStyled>X</HeaderIconButtonStyled>
+        <HeaderIconButtonStyled onClick={onClickRight}></HeaderIconButtonStyled>
       </RightBox>
     </HeaderContainer>
   );
