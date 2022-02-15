@@ -31,10 +31,21 @@ function HomeBanner() {
   const [touchStartClientX, setTouchStartClientX] = useState(0);
   const [touchEndClientX, setTouchEndClientX] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(1);
-  const [imageWidth, setImageWidth] = useState(0);
   const slideRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const ORIGINAL_IMAGE_LENGTH = data.length;
+  const [imageSize, setImageSize] = useState({
+    imageWidth: 0,
+    imageHeight: 0,
+  });
+
+  const [imageStepList, setImageStepList] = useState(
+    Array.from({ length: data.length }, (_, i) => {
+      return i === 0 ? 1 : 0;
+    })
+  );
+
+  const { imageHeight, imageWidth } = imageSize;
 
   useEffect(() => {
     setImageList([...data, ...data, ...data]);
@@ -134,7 +145,10 @@ function HomeBanner() {
 
   useEffect(() => {
     const onResize = () => {
-      setImageWidth(imageRef.current!.clientWidth);
+      setImageSize({
+        imageWidth: imageRef.current!.clientWidth,
+        imageHeight: imageRef.current!.clientHeight,
+      });
     };
     window.addEventListener("resize", onResize);
     return () => {
@@ -159,13 +173,27 @@ function HomeBanner() {
     return () => clearTimeout(intervalId);
   }, [isFlowing, currentSlide]);
 
-  console.log(
-    "dd",
-    imageWidth * -1 * initialFocusSlideIndex + touchMoveDistance
-  );
+  const onLoadImage = () => {
+    setImageSize({
+      imageWidth: imageRef.current!.clientWidth,
+      imageHeight: imageRef.current!.clientHeight,
+    });
+  };
+
+  useEffect(() => {
+    setImageStepList(
+      Array.from({ length: data.length }, (_, i) => {
+        const temp =
+          currentSlide > data.length
+            ? currentSlide - data.length
+            : currentSlide;
+        return i + 1 === temp ? 1 : 0;
+      })
+    );
+  }, [currentSlide]);
 
   return (
-    <BannerContainer>
+    <BannerContainer imageHeight={imageHeight}>
       <ImageBox
         ref={slideRef}
         isAnimation={isAnimation}
@@ -186,18 +214,23 @@ function HomeBanner() {
               onMouseUp={onMouseUp}
               onMouseEnter={onMouseEnter}
               onMouseLeave={onMouseLeave}
-              onLoad={() => setImageWidth(imageRef.current!.clientWidth)}
+              onLoad={onLoadImage}
             />
           ))}
         </ImageList>
       </ImageBox>
+      <CircleBox>
+        {imageStepList.map((item, index) => (
+          <Circle key={`Circle_${index}`} isSelected={item === 1} />
+        ))}
+      </CircleBox>
     </BannerContainer>
   );
 }
 
-const BannerContainer = styled.div`
+const BannerContainer = styled.div<{ imageHeight: number }>`
   width: 100%;
-  height: 282px;
+  height: ${({ imageHeight }) => imageHeight}px;
   position: relative;
   overflow: hidden;
 `;
@@ -214,6 +247,24 @@ const ImageList = styled.div`
 
 const BannerImage = styled.img`
   width: 100%;
+`;
+
+const CircleBox = styled.div`
+  display: flex;
+  align-items: center;
+  position: absolute;
+  z-index: 999;
+  bottom: 8%;
+  width: 60px;
+  right: 5%;
+  justify-content: space-between;
+`;
+
+const Circle = styled.div<{ isSelected: boolean }>`
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: ${({ isSelected }) => (isSelected ? "black" : "white")};
 `;
 
 export default HomeBanner;
