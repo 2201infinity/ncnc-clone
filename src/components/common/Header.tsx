@@ -1,22 +1,20 @@
 import BackIcon from "icons/BackIcon";
 import CloseIcon from "icons/CloseIcon";
 import HambugerIcon from "icons/HambugerIcon";
-import { useRouter } from "next/router";
 import React from "react";
 import styled, { css } from "styled-components";
-import Button from "./Button";
 
 interface HeaderProps {
   title?: string;
   leftIcon?: "hamburger" | "back" | "close";
-  closeIcon?: boolean;
+  rightIcon?: "back" | "close";
   onClickLeft?: () => void;
   onClickRight?: () => void;
 }
 
 function Header({
   title,
-  closeIcon,
+  rightIcon,
   leftIcon,
   onClickLeft,
   onClickRight,
@@ -42,7 +40,7 @@ function Header({
       <Title>{title}</Title>
       <RightBox>
         <HeaderIconButtonStyled onClick={onClickRight}>
-          <CloseIcon />
+          {rightIcon && iconPrint(rightIcon)}
         </HeaderIconButtonStyled>
       </RightBox>
     </HeaderContainer>
@@ -76,6 +74,7 @@ const HeaderIconButtonStyled = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `;
 
 const Title = styled.h2`

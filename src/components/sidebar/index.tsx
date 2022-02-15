@@ -1,4 +1,5 @@
 import Header from "components/common/Header";
+import EnterIcon from "icons/EnterIcon";
 import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
@@ -19,6 +20,7 @@ function Sidebar({ visible, onToggle }: SidebarProps) {
           <LinkedStyled>
             <SidebarMenuBox>
               <MenuText>고객센터</MenuText>
+              <EnterIcon />
             </SidebarMenuBox>
           </LinkedStyled>
         </Link>
@@ -31,8 +33,8 @@ function Sidebar({ visible, onToggle }: SidebarProps) {
 const SidebarContainer = styled.div<{ visible: boolean }>`
   position: absolute;
   z-index: 9999;
-  width: 100vw;
-  max-width: 672px;
+  width: 100%;
+  max-width: ${({ theme }) => theme.breakPoint.mobile}px;
   top: 0;
   background-color: #fff;
   margin: auto;
