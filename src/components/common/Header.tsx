@@ -43,7 +43,9 @@ function Header({
       </LeftBox>
       <Title>{title}</Title>
       <RightBox>
-        <HeaderIconButtonStyled onClick={onClickRight}>
+        <HeaderIconButtonStyled
+          onClick={onClickRight ? () => onClickRight() : () => router.push("/")}
+        >
           {rightIcon && iconPrint(rightIcon)}
         </HeaderIconButtonStyled>
       </RightBox>

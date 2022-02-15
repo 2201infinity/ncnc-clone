@@ -23,7 +23,7 @@ const Contacts: NextPage<FAQCont> = ({ qas }) => {
 
   return (
     <>
-      <Header title="고객센터" />
+      <Header title="고객센터" rightIcon="close" />
       <ContactsContainer>
         <InfoBox />
         <FAQ data={qaList} onToggleSelect={onToggleSelect} qaId={qaId} />
