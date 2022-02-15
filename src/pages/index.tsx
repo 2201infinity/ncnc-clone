@@ -5,6 +5,7 @@ import { CategoryItemType, MainCategory } from "types/response";
 import styled from "styled-components";
 import GridCardList from "components/common/GridCardList";
 import { useRouter } from "next/router";
+import ProductPage from "components/ProductDetail/ProductPage";
 
 interface HomeProps {
   categoryList: MainCategory[];
@@ -20,9 +21,10 @@ const Home: NextPage<HomeProps> = ({ categoryList }) => {
   return (
     <>
       <Header title="니콘내콘" leftIcon="hamburger" />
-      <CategoryListBox>
+      {/* <CategoryListBox>
         <GridCardList data={categoryList} onClick={onClick} />
-      </CategoryListBox>
+      </CategoryListBox> */}
+      <ProductPage />
     </>
   );
 };

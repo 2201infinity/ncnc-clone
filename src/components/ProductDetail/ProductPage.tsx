@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ProductDetailConItem } from "types/response";
+import { Option, ProductDetailConItem } from "types/response";
 import { getProductDetail } from "utils/api";
-import Button from "./common/Button";
-import OptionModal from "./OptionModal";
+import Button from "../common/Button";
+import OptionModal from "../OptionModal";
 
 function ProductPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [productDetail, setProductDetail] =
     useState<ProductDetailConItem | null>(null);
   const [notice, setNotice] = useState<string[]>();
+  const [options, setOptions] = useState<Option[]>();
+
   useEffect(() => {
     getData();
   }, []);
 
   useEffect(() => {
     setNotice(productDetail?.warning.split("\n"));
+    setOptions(productDetail?.options);
   }, [productDetail]);
 
   const getData = async () => {
@@ -36,7 +39,11 @@ function ProductPage() {
         ))}
       </NoticeWrapper>
       <ModalWrapper>
-        <OptionModal isModal={modalOpen}></OptionModal>
+        <OptionModal
+          isModal={modalOpen}
+          options={options}
+          discountRate={productDetail?.discountRate}
+        ></OptionModal>
         <Button onClick={() => setModalOpen((prev) => !prev)}>모달 버튼</Button>
       </ModalWrapper>
     </>
