@@ -20,6 +20,14 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
     setModalOpen(!modalOpen);
   };
   useEffect(() => {
+    const getData = async () => {
+      try {
+        const data = await getProductDetail(itemId);
+        setProductDetail(data.conItem);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     if (itemId) {
       getData();
     }
@@ -30,15 +38,6 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
     setOptions(productDetail?.options);
   }, [productDetail]);
 
-  const getData = async () => {
-    try {
-      const data = await getProductDetail(itemId);
-      setProductDetail(data.conItem);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const onClick = (e: React.MouseEvent<HTMLDivElement>, item: Option) => {
     const option =
       dateFormat(item.expireAt) + " 까지 / " + comma(item.sellingPrice) + "원";
@@ -46,10 +45,6 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
     setSelectedOption(option);
     onToggleModal();
   };
-
-  // useEffect(() => {
-  //   console.log(selectedOption);
-  // }, [selectedOption]);
 
   return (
     <Wrapper>

@@ -1,5 +1,5 @@
-import { GetServerSideProps, NextPage } from "next";
-import Router, { useRouter } from "next/router";
+import { NextPage } from "next";
+import { useRouter } from "next/router";
 import Header from "components/common/Header";
 
 import {
