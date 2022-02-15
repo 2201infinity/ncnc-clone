@@ -27,7 +27,7 @@ const Home: NextPage<HomeProps> = ({ categoryList }) => {
       />
       <HomeBanner />
       <CategoryListBox>
-        <GridCardList data={categoryList} path={Path.Brands} />
+        <GridCardList data={categoryList} path={Path.Categories} />
       </CategoryListBox>
 
       <Sidebar visible={isSidebar} onToggle={onToggleSidebar} />
