@@ -1,16 +1,16 @@
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { FAQCont, Qa } from "types/response";
 import { getFAQList } from "utils/api";
 
 interface ApiSampleProps {
-  data: FAQCont;
+  faqCont: Qa[];
 }
 
-const ApiSample = ({ data }: ApiSampleProps): JSX.Element => {
-  console.log(data);
+const ApiSample: NextPage<ApiSampleProps> = ({ faqCont }) => {
+  console.log(faqCont);
   return (
     <>
-      {data.qas.map((d: Qa) => {
+      {faqCont.map((d: Qa) => {
         const { answer, id, question } = d;
         return (
           <div key={id}>
@@ -24,10 +24,10 @@ const ApiSample = ({ data }: ApiSampleProps): JSX.Element => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await getFAQList();
+  const data = await getFAQList(1); // or 2
 
   return {
-    props: { data },
+    props: { faqCont: data.qas },
   };
 };
 
