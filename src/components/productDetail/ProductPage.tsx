@@ -82,7 +82,9 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
         <SelectedOptionBox>
           <OptionInfo>
             <OptionTitle>{selectedOption}</OptionTitle>
-            <PencilIcon />
+            <IconWrapper>
+              <PencilIcon />
+            </IconWrapper>
           </OptionInfo>
         </SelectedOptionBox>
       )}
@@ -167,10 +169,17 @@ const OptionInfo = styled.div`
   justify-content: space-between;
 `;
 
-const OptionTitle = styled.div``;
+const OptionTitle = styled.div`
+  font-size: ${({ theme }) => theme.fontSize.h4Text};
+  font-weight: 600;
+`;
 
 const NoticeTitle = styled.li`
   font-size: ${({ theme }) => theme.fontSize.title};
   margin-top: 9.7px;
   margin-bottom: 9.7px;
+`;
+
+const IconWrapper = styled.div`
+  margin-right: 14px;
 `;
