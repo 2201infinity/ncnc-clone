@@ -12,7 +12,6 @@ interface HeaderProps {
 function Header({ title, closeIcon, leftIcon }: HeaderProps) {
   return (
     <HeaderContainer>
-      <Button buttonType="close" width="16px" height="16px"></Button>
       <LeftBox>
         <HeaderIconButtonStyled>버튼</HeaderIconButtonStyled>
       </LeftBox>

@@ -30,8 +30,8 @@ function Button({
         width={width}
         height={height}
         borderRadius={borderRadius}
-        {...rest}
         buttonType={buttonType}
+        {...rest}
       >
         {buttonType === "close" ? (
           <CloseIcon />
