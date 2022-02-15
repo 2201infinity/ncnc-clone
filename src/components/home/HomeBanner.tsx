@@ -143,6 +143,26 @@ function HomeBanner() {
   const onMouseEnter = () => setIsFlowing(false);
   const onMouseLeave = () => setIsFlowing(true);
 
+  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setIsFlowing(false);
+    setIsAnimation(false);
+    setTouchStartClientX(e.touches[0].clientX);
+    setTouchEndClientX(e.touches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    setTouchEndClientX(e.touches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    setIsFlowing(true);
+    setIsAnimation(true);
+    if (touchMoveDistance > moveRange) onPrevSlide();
+    if (touchMoveDistance < moveRange * -1) onNextSlide();
+    setTouchStartClientX(0);
+    setTouchEndClientX(0);
+  };
+
   useEffect(() => {
     const onResize = () => {
       setImageSize({
@@ -214,6 +234,9 @@ function HomeBanner() {
               onMouseUp={onMouseUp}
               onMouseEnter={onMouseEnter}
               onMouseLeave={onMouseLeave}
+              onTouchStart={onTouchStart}
+              onTouchEnd={onTouchEnd}
+              onTouchMove={onTouchMove}
               onLoad={onLoadImage}
             />
           ))}
