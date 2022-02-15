@@ -1,4 +1,5 @@
 import { ProductCardItem } from "components/common/ProductCardItem";
+import PencilIcon from "icons/PencilIcon";
 import React, { ReactElement, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { Option, ProductDetailConItem } from "types/response";
@@ -15,11 +16,9 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
   const [notice, setNotice] = useState<string[]>();
   const [options, setOptions] = useState<Option[]>();
   const [selectedOption, setSelectedOption] = useState<string>("");
-  // console.log(notice);
+
   const onToggleModal = () => {
-    setTimeout(() => {
-      setModalOpen(false);
-    }, 500);
+    setModalOpen(false);
   };
   useEffect(() => {
     const getData = async () => {
@@ -36,14 +35,20 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
   }, [itemId]);
 
   useEffect(() => {
-    console.log(productDetail?.warning);
     setNotice(productDetail?.warning?.split("\n"));
     setOptions(productDetail?.options);
   }, [productDetail]);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>, item: Option) => {
     const option =
-      dateFormat(item.expireAt) + " 까지 / " + comma(item.sellingPrice) + "원";
+      new Date(item.expireAt).getFullYear() +
+      "." +
+      new Date(item.expireAt).getMonth() +
+      "." +
+      new Date(item.expireAt).getDate() +
+      " 까지 / " +
+      comma(item.sellingPrice) +
+      "원";
 
     setSelectedOption(option);
     onToggleModal();
@@ -67,13 +72,18 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
               {item && item.slice(2, item.length)}
             </Notice>
           ) : !findXText(item) ? (
-            <NoticeTitle>{item.slice(1, item.length - 1)}</NoticeTitle>
+            <NoticeTitle key={`item_${index}`}>
+              {item.slice(1, item.length - 1)}
+            </NoticeTitle>
           ) : null
         )}
       </NoticeWrapper>
       {selectedOption && (
         <SelectedOptionBox>
-          <OptionInfo>{selectedOption}</OptionInfo>
+          <OptionInfo>
+            <OptionTitle>{selectedOption}</OptionTitle>
+            <PencilIcon />
+          </OptionInfo>
         </SelectedOptionBox>
       )}
       <ModalWrapper>
@@ -84,11 +94,13 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
           discountRate={productDetail?.discountRate}
           onClick={onClick}
         ></OptionModal>
-        <ButtonWrapper>
-          <Button onClick={() => setModalOpen(true)} disabled={modalOpen}>
-            {selectedOption ? "구매하기" : "옵션 선택하기"}
-          </Button>
-        </ButtonWrapper>
+        <StyledButton
+          width="100%"
+          onClick={() => setModalOpen(true)}
+          disabled={modalOpen}
+        >
+          {selectedOption ? "구매하기" : "옵션 선택하기"}
+        </StyledButton>
       </ModalWrapper>
     </Wrapper>
   );
@@ -96,6 +108,7 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
 
 export default ProductPage;
 const Wrapper = styled.div`
+  width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.white};
   display: flex;
@@ -120,14 +133,12 @@ const NoticeWrapper = styled.ul<{ modalOpen: boolean }>`
 const Notice = styled.li`
   margin-left: 17px;
   margin-bottom: 9px;
-  font-size: ${({ theme }) => theme.fontSize.smallText};
+  font-size: ${({ theme }) => theme.fontSize.text};
   color: ${({ theme }) => theme.colors.gray};
   list-style: disc;
 `;
 
-const ButtonWrapper = styled.div`
-  width: 100%;
-  position: fixed;
+const StyledButton = styled(Button)`
   bottom: 0;
 `;
 const SelectedOptionBox = styled.div`
@@ -153,7 +164,10 @@ const OptionInfo = styled.div`
   align-items: center;
   padding-left: 10px;
   margin: 17px;
+  justify-content: space-between;
 `;
+
+const OptionTitle = styled.div``;
 
 const NoticeTitle = styled.li`
   font-size: ${({ theme }) => theme.fontSize.title};

@@ -30,7 +30,13 @@ function OptionModal({
         {options?.map((item) => (
           <div key={item.expireAt} onClick={(e) => onClick(e, item)}>
             <OptionItem
-              expireAt={item.expireAt}
+              expireAt={
+                new Date(item.expireAt).getFullYear() +
+                "." +
+                new Date(item.expireAt).getMonth() +
+                "." +
+                new Date(item.expireAt).getDate()
+              }
               count={item.count}
               sellingPrice={item.sellingPrice}
               discountRate={discountRate}
