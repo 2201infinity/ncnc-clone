@@ -11,7 +11,7 @@ interface IModalProps extends IModalStyled {
   children: React.ReactNode;
 }
 function Modal({
-  width = "375px",
+  width,
   height = "241px",
   isModal,
   children,
@@ -38,6 +38,7 @@ const ModalInner = styled.div<IModalStyled>`
   background-color: ${({ theme }) => theme.colors.white};
   width: ${({ width }) => width};
   height: ${({ height }) => height};
+
   ${({ isModal }) => {
     switch (isModal) {
       case true:
@@ -45,16 +46,42 @@ const ModalInner = styled.div<IModalStyled>`
           position: absolute;
           z-index: 9999;
           bottom: 80px;
+          animation: FadeIn 0.8s ease-in;
         `;
       case false:
         return css`
           display: none;
-          position: fixed;
+          /* position: fixed;
           top: 0;
           right: 0;
           bottom: 0;
           left: 0;
+          animation: FadeOut 0.8s ease-out;
+          animation-fill-mode: none; */
         `;
     }
   }};
+
+  @keyframes FadeIn {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 0;
+      transform: translateY(90%);
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes FadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.1;
+      transform: translateY(100%);
+    }
+  }
 `;

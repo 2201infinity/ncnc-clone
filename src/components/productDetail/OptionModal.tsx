@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
-import { Option } from "types/response";
+import { Option } from "types/product";
 import { comma } from "utils/comma";
 import { dateFormat } from "utils/date";
 import Modal from "./Modal";
@@ -22,7 +22,7 @@ function OptionModal({
   onClick,
 }: IOptionModalProps): ReactElement {
   return (
-    <Modal isModal={isModal}>
+    <Modal isModal={isModal} width="100%">
       <BeforeOption>
         <Span>옵션 선택하기</Span>
       </BeforeOption>

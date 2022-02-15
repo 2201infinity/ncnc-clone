@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import Button from "components/common/Button";
-import { Qa, QaType } from "types/response";
 import QuestionBox from "components/contacts/QuestionBox";
 import { getFAQType } from "utils/api";
+import { Qa, QaType } from "types/faq";
 
 interface FAQProps {
   data: Qa[];
