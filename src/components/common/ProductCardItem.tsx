@@ -1,17 +1,22 @@
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
+
 import { BrandDetailConItem } from "types/brand";
+import { ConCategory2 } from "types/category";
 import { ClearanceListConItems } from "types/clearance";
 import { ProductDetailConItem } from "types/product";
+
 import { comma } from "utils/comma";
 
 interface ItemProps {
-  item: BrandDetailConItem | ProductDetailConItem | ClearanceListConItems;
+  item: BrandDetailConItem | ProductDetailConItem | ClearanceListConItems | any;
+  conCategory2?: ConCategory2;
 }
 interface ProductCardItemProps extends ItemProps {
   isClickable?: boolean;
 }
+
 export const ProductCardItem = ({
   item,
   isClickable,
@@ -24,8 +29,7 @@ export const ProductCardItem = ({
     minSellingPrice,
     discountRate,
     conCategory2,
-  } = item as ProductDetailConItem;
-
+  } = item;
   const router = useRouter();
   const onClick = () => {
     isClickable && router.push(`/items/${id}`);

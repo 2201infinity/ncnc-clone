@@ -18,7 +18,8 @@ export default AppLayout;
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   padding: 0;
   margin: auto;
   padding-top: 59px;

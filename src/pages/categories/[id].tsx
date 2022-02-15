@@ -22,6 +22,12 @@ interface CategoryDetailProps {
   categoryList: MainCategory[];
 }
 
+interface ClearanceListType extends ClearanceList {
+  name: string;
+}
+
+type NewArrayType = Array<{}>;
+
 const CategoryDetailPage: NextPage<CategoryDetailProps> = ({
   categoryDetailList,
   categoryList,
@@ -29,15 +35,23 @@ const CategoryDetailPage: NextPage<CategoryDetailProps> = ({
   const router = useRouter();
   const [categoryDetailListData, setCategoryDetailListData] = useState([]);
   const [title, setTitle] = useState("");
+  console.log(categoryDetailList);
   useEffect(() => {
     if (router.query.id === "1") {
-      const result = categoryDetailList.conCategory1.conCategory2s.reduce(
-        (a: ConcatArray<ClearanceListConItems>, e: ClearanceList) => {
-          return e.conItems.concat(a);
-        },
-        []
+      const result: NewArrayType = [];
+      categoryDetailList.conCategory1.conCategory2s.map(
+        (data: ClearanceListType) =>
+          data.conItems.map((item: any) =>
+            result.push({
+              ...item,
+              conCategory2: {
+                name: data.name,
+              },
+            })
+          )
       );
-      setCategoryDetailListData(result);
+
+      setCategoryDetailListData(result as never[]);
       setTitle(categoryDetailList.conCategory1.name);
     } else {
       setTitle(categoryDetailList.conCategory1.name);
