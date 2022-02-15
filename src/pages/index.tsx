@@ -29,7 +29,7 @@ const Home: NextPage<HomeProps> = ({ categoryList, conItems }) => {
       />
       <HomeBanner />
       <CategoryListBox>
-        <GridCardList data={categoryList} path={Path.Brands} />
+        <GridCardList data={categoryList} path={Path.Categories} />
       </CategoryListBox>
 
       <ClearanceListBox>
