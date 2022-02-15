@@ -1,6 +1,8 @@
 import axios from "axios";
 import {
   BrandAndProductList,
+  BrandDetail,
+  BrandName,
   ClearanceList,
   FAQCont,
   FAQType,
@@ -34,7 +36,7 @@ export const getBrandAndProductList = async (conCategoryId: number) => {
 };
 
 // 상품 상세
-export const getProductDetail = async (conItemId: number) => {
+export const getProductDetail = async (conItemId: string) => {
   const response = await api.get<ProductDetail>(`con-items/${conItemId}`);
   return response.data;
 };
@@ -48,5 +50,19 @@ export const getFAQType = async () => {
 // FAQ 내용
 export const getFAQList = async (qaTypeId: number) => {
   const response = await api.get<FAQCont>(`qas?qaTypeId=${qaTypeId}`);
+  return response.data;
+};
+
+// 브랜드 명
+export const getBrandName = async (conCategory2Id: number) => {
+  const response = await api.get<BrandName>(`con-category2s/${conCategory2Id}`);
+  return response.data;
+};
+
+// 브랜드 상세
+export const getBrandDetail = async (conCategory2Id: number) => {
+  const response = await api.get<BrandDetail>(
+    `con-items/?conCategory2Id=${conCategory2Id}`
+  );
   return response.data;
 };

@@ -1,6 +1,9 @@
+import BackIcon from "icons/BackIcon";
+import CloseIcon from "icons/CloseIcon";
 import { useRouter } from "next/router";
 import React from "react";
 import styled, { css } from "styled-components";
+import Button from "./Button";
 
 interface HeaderProps {
   title?: string;
@@ -21,12 +24,20 @@ function Header({
     <HeaderContainer>
       <LeftBox>
         <HeaderIconButtonStyled onClick={onClickLeft}>
-          버튼
+          {closeIcon ? (
+            <CloseIcon />
+          ) : leftIcon === "back" ? (
+            <BackIcon />
+          ) : (
+            "hamburger"
+          )}
         </HeaderIconButtonStyled>
       </LeftBox>
       <Title>{title}</Title>
       <RightBox>
-        <HeaderIconButtonStyled onClick={onClickRight}></HeaderIconButtonStyled>
+        <HeaderIconButtonStyled onClick={onClickRight}>
+          <CloseIcon />
+        </HeaderIconButtonStyled>
       </RightBox>
     </HeaderContainer>
   );

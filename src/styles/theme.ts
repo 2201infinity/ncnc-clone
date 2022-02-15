@@ -8,12 +8,15 @@ export const colors = {
   background: "#f1f3f4",
   border: "#dddddd",
   buttonDisabled: "#ccc",
+  buttonHover: "#ff8b84",
+  buttonIconHover: "#dddddd",
   layoutBackground: "rgb(238, 238, 238);",
 };
 
 export const fontSize = {
   title: "16px",
   text: "14px",
+  h4Text: "15px",
   smallText: "12px",
 };
 
