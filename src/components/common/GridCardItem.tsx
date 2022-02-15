@@ -1,23 +1,27 @@
+import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 import { CategoryItemType } from "types/response";
+import { PathValueTypes } from "utils/path";
 
 interface CardItemProps {
   item: CategoryItemType;
-  onClick: (item: CategoryItemType) => void;
+  path: PathValueTypes;
 }
 
-function GridCardItem({ item, onClick }: CardItemProps) {
-  const { imageUrl, name } = item;
+function GridCardItem({ item, path }: CardItemProps) {
+  const { imageUrl, name, id } = item;
   return (
     <CardItemContainer>
       <CardItem>
-        <ItemLinked>
-          <ItemContent onClick={() => onClick(item)}>
-            <ItemImage src={imageUrl} />
-            <ItemText>{name}</ItemText>
-          </ItemContent>
-        </ItemLinked>
+        <Link href={`${path}/${id}`} passHref>
+          <ItemLinked>
+            <ItemContent>
+              <ItemImage src={imageUrl} />
+              <ItemText>{name}</ItemText>
+            </ItemContent>
+          </ItemLinked>
+        </Link>
       </CardItem>
     </CardItemContainer>
   );
