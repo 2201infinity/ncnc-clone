@@ -14,10 +14,12 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
     useState<ProductDetailConItem | null>(null);
   const [notice, setNotice] = useState<string[]>();
   const [options, setOptions] = useState<Option[]>();
-  const [selectedOption, setSelectedOption] = useState<string>();
-
+  const [selectedOption, setSelectedOption] = useState<string>("");
+  // console.log(notice);
   const onToggleModal = () => {
-    setModalOpen(!modalOpen);
+    setTimeout(() => {
+      setModalOpen(false);
+    }, 500);
   };
   useEffect(() => {
     if (itemId) {
@@ -26,7 +28,8 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
   }, [itemId]);
 
   useEffect(() => {
-    setNotice(productDetail?.warning.split("\n"));
+    console.log(productDetail?.warning);
+    setNotice(productDetail?.warning?.split("\n"));
     setOptions(productDetail?.options);
   }, [productDetail]);
 
@@ -47,21 +50,33 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
     onToggleModal();
   };
 
-  // useEffect(() => {
-  //   console.log(selectedOption);
-  // }, [selectedOption]);
+  const findTitle = (text: string) => {
+    return text.charAt(0) === "[" || text.trim() === "";
+  };
+
+  const findXText = (text: string) => {
+    return text.substring(1, 2) === "사";
+  };
 
   return (
     <Wrapper>
       {productDetail !== null ? <ProductCardItem item={productDetail} /> : null}
-      <NoticeWrapper modalOpen={modalOpen}>
-        {notice?.map((item: string, index: number) => (
-          <Notice key={`item_${index}`}>{item}</Notice>
-        ))}
+      <NoticeWrapper modalOpen={modalOpen} onClick={onToggleModal}>
+        {notice?.map((item: string, index: number) =>
+          !findTitle(item) ? (
+            <Notice key={`item_${index}`}>
+              {item && item.slice(2, item.length)}
+            </Notice>
+          ) : !findXText(item) ? (
+            <NoticeTitle>{item.slice(1, item.length - 1)}</NoticeTitle>
+          ) : null
+        )}
       </NoticeWrapper>
-      <SelectedOptionBox>
-        <OptionInfo>{selectedOption}</OptionInfo>
-      </SelectedOptionBox>
+      {selectedOption && (
+        <SelectedOptionBox>
+          <OptionInfo>{selectedOption}</OptionInfo>
+        </SelectedOptionBox>
+      )}
       <ModalWrapper>
         <OptionModal
           isModal={modalOpen}
@@ -71,8 +86,8 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
           onClick={onClick}
         ></OptionModal>
         <ButtonWrapper>
-          <Button onClick={onToggleModal} disabled={modalOpen}>
-            {modalOpen ? "구매하기" : "옵션 선택하기"}
+          <Button onClick={() => setModalOpen(true)} disabled={modalOpen}>
+            {selectedOption ? "구매하기" : "옵션 선택하기"}
           </Button>
         </ButtonWrapper>
       </ModalWrapper>
@@ -88,10 +103,11 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 const ModalWrapper = styled.div``;
-const NoticeWrapper = styled.div<{ modalOpen: boolean }>`
+const NoticeWrapper = styled.ul<{ modalOpen: boolean }>`
   padding-top: 18px;
   padding-left: 17px;
   padding-right: 17px;
+  height: 100%;
 
   ${({ modalOpen }) => {
     switch (modalOpen) {
@@ -102,9 +118,12 @@ const NoticeWrapper = styled.div<{ modalOpen: boolean }>`
     }
   }};
 `;
-const Notice = styled.div`
-  margin-bottom: 5px;
+const Notice = styled.li`
+  margin-left: 17px;
+  margin-bottom: 9px;
   font-size: ${({ theme }) => theme.fontSize.smallText};
+  color: ${({ theme }) => theme.colors.gray};
+  list-style: disc;
 `;
 
 const ButtonWrapper = styled.div`
@@ -120,6 +139,9 @@ const SelectedOptionBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  position: fixed;
+  bottom: 80px;
 `;
 
 const OptionInfo = styled.div`
@@ -131,4 +153,11 @@ const OptionInfo = styled.div`
   display: flex;
   align-items: center;
   padding-left: 10px;
+  margin: 17px;
+`;
+
+const NoticeTitle = styled.li`
+  font-size: ${({ theme }) => theme.fontSize.title};
+  margin-top: 9.7px;
+  margin-bottom: 9.7px;
 `;
