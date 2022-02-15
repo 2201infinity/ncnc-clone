@@ -13,6 +13,7 @@ export const colors = {
 export const fontSize = {
   title: "16px",
   text: "14px",
+  h4Text: "15px",
   smallText: "12px",
 };
 
