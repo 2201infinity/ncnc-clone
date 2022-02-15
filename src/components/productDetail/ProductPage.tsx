@@ -22,6 +22,14 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
     }, 500);
   };
   useEffect(() => {
+    const getData = async () => {
+      try {
+        const data = await getProductDetail(itemId);
+        setProductDetail(data.conItem);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     if (itemId) {
       getData();
     }
@@ -32,15 +40,6 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
     setNotice(productDetail?.warning?.split("\n"));
     setOptions(productDetail?.options);
   }, [productDetail]);
-
-  const getData = async () => {
-    try {
-      const data = await getProductDetail(itemId);
-      setProductDetail(data.conItem);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>, item: Option) => {
     const option =

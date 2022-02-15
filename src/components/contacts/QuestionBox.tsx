@@ -59,4 +59,5 @@ const Question = styled.div`
 const Answer = styled.div`
   padding: 17px;
   background-color: ${({ theme }) => theme.colors.background};
+  line-height: 21px;
 `;

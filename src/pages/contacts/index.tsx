@@ -3,8 +3,8 @@ import { FAQCont } from "types/response";
 import { getFAQList } from "utils/api";
 import styled from "styled-components";
 import Header from "components/common/Header";
-import InfoBox from "components/InfoBox";
-import FAQ from "components/FAQ";
+import InfoBox from "components/contacts/InfoBox";
+import FAQ from "components/contacts/FAQ";
 import React, { useState, useEffect } from "react";
 
 const Contacts: NextPage<FAQCont> = ({ qas }) => {
@@ -23,7 +23,7 @@ const Contacts: NextPage<FAQCont> = ({ qas }) => {
 
   return (
     <>
-      <Header title="고객센터" />
+      <Header title="고객센터" rightIcon="close" />
       <ContactsContainer>
         <InfoBox />
         <FAQ data={qaList} onToggleSelect={onToggleSelect} qaId={qaId} />

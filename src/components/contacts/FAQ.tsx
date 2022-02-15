@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import Button from "components/common/Button";
 import { Qa, QaType } from "types/response";
-import QuestionBox from "components/QuestionBox";
+import QuestionBox from "components/contacts/QuestionBox";
 import { getFAQType } from "utils/api";
 
 interface FAQProps {
   data: Qa[];
   onToggleSelect: (id: number) => void;
-  onSelectAnswer: (id: number | null) => void;
   qaId: number;
 }
 
@@ -32,19 +31,22 @@ const FAQ: React.FC<FAQProps> = ({ data, onToggleSelect, qaId }) => {
 
   return (
     <Container>
+      <GrayBox></GrayBox>
       <Box>
         <h3>자주 묻는 질문</h3>
-        {qaTypes?.map((item) => (
-          <StyledButton
-            key={item.id}
-            width="50%"
-            height="40px"
-            onClick={() => onToggleSelect(item.id)}
-            isSelected={item.id === qaId}
-          >
-            {item.name}
-          </StyledButton>
-        ))}
+        <div>
+          {qaTypes?.map((item) => (
+            <StyledButton
+              key={item.id}
+              width="50%"
+              height="40px"
+              onClick={() => onToggleSelect(item.id)}
+              isSelected={item.id === qaId}
+            >
+              {item.name}
+            </StyledButton>
+          ))}
+        </div>
       </Box>
       <GrayBox></GrayBox>
 
@@ -63,8 +65,6 @@ const FAQ: React.FC<FAQProps> = ({ data, onToggleSelect, qaId }) => {
 export default FAQ;
 
 const Container = styled.div`
-  height: 89px;
-
   h3 {
     font-size: ${({ theme }) => theme.fontSize.title};
     font-weight: 500;
@@ -73,7 +73,11 @@ const Container = styled.div`
 `;
 
 const Box = styled.div`
-  padding: 0 17px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 89px;
+  padding: 16px 17px 0 17px;
   border-bottom: 1px solid #c4c4c4;
 `;
 

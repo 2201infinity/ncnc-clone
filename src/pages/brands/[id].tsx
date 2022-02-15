@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { BrandDetailConItem } from "types/response";
 import { getBrandDetail, getBrandName } from "utils/api";
 import Header from "components/common/Header";
@@ -23,10 +23,10 @@ const BrandDetailPage: NextPage<BrandDetailProps> = ({ brandName, data }) => {
   );
 };
 
-export const getServerSideProps = async (context: any) => {
-  const router = context.query.id;
-  const brandName = await getBrandName(router);
-  const data = await getBrandDetail(router);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const router = context.query.id as string;
+  const brandName = await getBrandName(+router);
+  const data = await getBrandDetail(+router);
   return {
     props: {
       brandName: brandName.conCategory2.name,

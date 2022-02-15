@@ -1,5 +1,5 @@
-import { GetServerSideProps, NextPage } from "next";
-import Router, { useRouter } from "next/router";
+import { NextPage } from "next";
+import { useRouter } from "next/router";
 import Header from "components/common/Header";
 
 import {
@@ -32,7 +32,6 @@ const CategoryDetailPage: NextPage<CategoryDetailProps> = ({
   const router = useRouter();
   const [categoryDetailListData, setCategoryDetailListData] = useState([]);
   const [title, setTitle] = useState("");
-  console.log(categoryDetailList.conCategory1.conCategory2s);
   useEffect(() => {
     if (router.query.id === "1") {
       const result = categoryDetailList.conCategory1.conCategory2s.reduce(
@@ -42,7 +41,7 @@ const CategoryDetailPage: NextPage<CategoryDetailProps> = ({
         []
       );
       setCategoryDetailListData(result);
-      setTitle(categoryDetailList.name);
+      setTitle(categoryDetailList.conCategory1.name);
     } else {
       setTitle(categoryDetailList.conCategory1.name);
     }

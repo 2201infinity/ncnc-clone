@@ -1,12 +1,12 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import {
   BrandDetailConItem,
   ClearanceListConItems,
   ProductDetailConItem,
 } from "types/response";
+import { comma } from "utils/comma";
 
 interface ItemProps {
   item: BrandDetailConItem | ProductDetailConItem | ClearanceListConItems;
@@ -41,8 +41,8 @@ export const ProductCardItem = ({
         <ProductName>{name}</ProductName>
         <p>
           <DiscountRate>{discountRate}%</DiscountRate>
-          <MinSellingPrice>{minSellingPrice}원</MinSellingPrice>
-          <OriginalPrice>{originalPrice}원</OriginalPrice>
+          <MinSellingPrice>{comma(minSellingPrice)}원</MinSellingPrice>
+          <OriginalPrice>{comma(originalPrice)}원</OriginalPrice>
         </p>
       </CardDesc>
     </CardItemContainer>
@@ -54,6 +54,7 @@ const CardItemContainer = styled.div`
   padding: 15px 21px;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  cursor: pointer;
 `;
 
 const Image = styled.img<{ isClickable: boolean | undefined }>`
