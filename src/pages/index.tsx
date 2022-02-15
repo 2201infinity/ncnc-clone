@@ -1,7 +1,6 @@
 import Header from "components/common/Header";
 import type { NextPage } from "next";
 import { getClearanceList, getMainCategoryList } from "utils/api";
-import { MainCategory, ClearanceListConItems } from "types/response";
 import styled from "styled-components";
 import GridCardList from "components/common/GridCardList";
 import HomeBanner from "components/home/HomeBanner";
@@ -9,6 +8,8 @@ import Path from "utils/path";
 import Sidebar from "components/sidebar";
 import ProductCardList from "components/common/ProductCardList";
 import useToggle from "hooks/useToggle";
+import { MainCategory } from "types/category";
+import { ClearanceListConItems } from "types/clearance";
 
 interface HomeProps {
   categoryList: MainCategory[];

@@ -3,12 +3,6 @@ import { useRouter } from "next/router";
 import Header from "components/common/Header";
 
 import {
-  BrandAndProductListConCategory1,
-  ClearanceList,
-  ClearanceListConItems,
-  MainCategory,
-} from "types/response";
-import {
   getBrandAndProductList,
   getClearanceList,
   getMainCategoryList,
@@ -19,6 +13,9 @@ import styled from "styled-components";
 import { Navigation } from "components/category/Navigation";
 import ProductCardList from "components/common/ProductCardList";
 import { useEffect, useState } from "react";
+import { BrandAndProductListConCategory1 } from "types/brand";
+import { ClearanceList, ClearanceListConItems } from "types/clearance";
+import { MainCategory } from "types/category";
 
 interface CategoryDetailProps {
   categoryDetailList: BrandAndProductListConCategory1 | ClearanceList | any;

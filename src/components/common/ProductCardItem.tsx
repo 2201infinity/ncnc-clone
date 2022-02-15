@@ -1,11 +1,9 @@
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
-import {
-  BrandDetailConItem,
-  ClearanceListConItems,
-  ProductDetailConItem,
-} from "types/response";
+import { BrandDetailConItem } from "types/brand";
+import { ClearanceListConItems } from "types/clearance";
+import { ProductDetailConItem } from "types/product";
 import { comma } from "utils/comma";
 
 interface ItemProps {
