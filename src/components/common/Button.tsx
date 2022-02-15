@@ -48,7 +48,7 @@ function Button({
 export default Button;
 
 const StyledButton = styled.button<IStyledButtonProps>`
-  width: 100%;
+  width: ${({ width }) => width};
   height: ${({ height }) => height};
   border-radius: ${({ borderRadius }) => borderRadius};
   cursor: pointer;
