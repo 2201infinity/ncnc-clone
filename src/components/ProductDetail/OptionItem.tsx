@@ -6,7 +6,6 @@ import { dateFormat } from "utils/date";
 
 interface IOptionProps extends Option {
   discountRate?: number;
-  onClick: (item: Option) => void;
 }
 
 function OptionItem({
@@ -14,7 +13,6 @@ function OptionItem({
   count,
   sellingPrice,
   discountRate,
-  onClick,
 }: IOptionProps): ReactElement {
   return (
     <OptionContainer>

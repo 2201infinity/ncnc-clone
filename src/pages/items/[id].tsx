@@ -9,7 +9,7 @@ const Items = () => {
 
   return (
     <>
-      <Header title="" leftIcon="hamburger" />
+      <Header title="" leftIcon="back" />
       <ProductPage itemId={id as string} />
     </>
   );

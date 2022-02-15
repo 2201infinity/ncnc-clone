@@ -13,6 +13,9 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
   const [notice, setNotice] = useState<string[]>();
   const [options, setOptions] = useState<Option[]>();
 
+  const onToggleModal = () => {
+    setModalOpen(!modalOpen);
+  };
   useEffect(() => {
     if (itemId) {
       getData();
@@ -45,11 +48,12 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
       <ModalWrapper>
         <OptionModal
           isModal={modalOpen}
+          onToggleModal={onToggleModal}
           options={options}
           discountRate={productDetail?.discountRate}
         ></OptionModal>
         <Footer>
-          <Button onClick={() => setModalOpen((prev) => !prev)}>
+          <Button onClick={onToggleModal} disabled={modalOpen}>
             {modalOpen ? "구매하기" : "옵션 선택하기"}
           </Button>
         </Footer>
@@ -59,10 +63,17 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
 }
 
 export default ProductPage;
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.white};
+`;
 const ModalWrapper = styled.div``;
 const NoticeWrapper = styled.div<{ modalOpen: boolean }>`
-  background-color: ${({ theme }) => theme.colors.white};
+  padding-top: 18px;
+  padding-left: 17px;
+  padding-right: 17px;
+
+  height: 100%;
   ${({ modalOpen }) => {
     switch (modalOpen) {
       case true:
@@ -73,6 +84,7 @@ const NoticeWrapper = styled.div<{ modalOpen: boolean }>`
   }};
 `;
 const Notice = styled.div`
+  margin-bottom: 5px;
   font-size: ${({ theme }) => theme.fontSize.smallText};
 `;
 

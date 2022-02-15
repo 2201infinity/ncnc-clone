@@ -1,6 +1,8 @@
-import { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Option } from "types/response";
+import { comma } from "utils/comma";
+import { dateFormat } from "utils/date";
 import Modal from "./Modal";
 import OptionItem from "./OptionItem";
 
@@ -8,21 +10,27 @@ interface IOptionModalProps {
   isModal: boolean;
   options?: Option[];
   discountRate?: number;
+  onToggleModal: () => void;
 }
 
 function OptionModal({
   isModal,
   options,
   discountRate,
+  onToggleModal,
 }: IOptionModalProps): ReactElement {
-  const [selectedOption, setSelectedOption] = useState<Option>();
-  const onClick = (item: Option) => {
-    console.log("찍");
-    console.log(item);
+  const [selectedOption, setSelectedOption] = useState<string>();
+  const onClick = (e: React.MouseEvent<HTMLDivElement>, item: Option) => {
+    const option =
+      dateFormat(item.expireAt) + " 까지 / " + comma(item.sellingPrice) + "원";
+    setSelectedOption(option);
+    onToggleModal();
   };
+
   useEffect(() => {
     console.log(selectedOption);
   }, [selectedOption]);
+
   return (
     <Modal isModal={isModal}>
       <BeforeOption>
@@ -30,14 +38,14 @@ function OptionModal({
       </BeforeOption>
       <OptionList>
         {options?.map((item) => (
-          <OptionItem
-            key={item.expireAt}
-            expireAt={item.expireAt}
-            count={item.count}
-            sellingPrice={item.sellingPrice}
-            discountRate={discountRate}
-            onClick={(item: Option) => onClick(item)} // 컴포넌트에서 이벤트 실행 x
-          ></OptionItem>
+          <div key={item.expireAt} onClick={(e) => onClick(e, item)}>
+            <OptionItem
+              expireAt={item.expireAt}
+              count={item.count}
+              sellingPrice={item.sellingPrice}
+              discountRate={discountRate}
+            ></OptionItem>
+          </div>
         ))}
       </OptionList>
     </Modal>
