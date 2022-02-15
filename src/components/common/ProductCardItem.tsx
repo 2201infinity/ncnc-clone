@@ -1,6 +1,5 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import {
   BrandDetailConItem,
@@ -55,6 +54,7 @@ const CardItemContainer = styled.div`
   padding: 15px 21px;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  cursor: pointer;
 `;
 
 const Image = styled.img<{ isClickable: boolean | undefined }>`
