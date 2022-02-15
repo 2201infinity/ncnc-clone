@@ -1,5 +1,6 @@
 import BackIcon from "icons/BackIcon";
 import CloseIcon from "icons/CloseIcon";
+import HambugerIcon from "icons/HambugerIcon";
 import { useRouter } from "next/router";
 import React from "react";
 import styled, { css } from "styled-components";
@@ -7,7 +8,7 @@ import Button from "./Button";
 
 interface HeaderProps {
   title?: string;
-  leftIcon?: "hamburger" | "back";
+  leftIcon?: "hamburger" | "back" | "close";
   closeIcon?: boolean;
   onClickLeft?: () => void;
   onClickRight?: () => void;
@@ -20,17 +21,22 @@ function Header({
   onClickLeft,
   onClickRight,
 }: HeaderProps) {
+  const iconPrint = (icon: "hamburger" | "back" | "close") => {
+    switch (icon) {
+      case "hamburger":
+        return <HambugerIcon />;
+      case "close":
+        return <CloseIcon />;
+      case "back":
+        return <BackIcon />;
+    }
+  };
+
   return (
     <HeaderContainer>
       <LeftBox>
         <HeaderIconButtonStyled onClick={onClickLeft}>
-          {closeIcon ? (
-            <CloseIcon />
-          ) : leftIcon === "back" ? (
-            <BackIcon />
-          ) : (
-            "hamburger"
-          )}
+          {leftIcon && iconPrint(leftIcon)}
         </HeaderIconButtonStyled>
       </LeftBox>
       <Title>{title}</Title>
