@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import Button from "components/common/Button";
 import QuestionBox from "components/contacts/QuestionBox";
-import { getFAQType } from "utils/api";
 import { Qa, QaType } from "types/faq";
 
 interface FAQProps {
-  data: Qa[];
+  qaList: Qa[];
   onToggleSelect: (id: number) => void;
   qaId: number;
+  qaTypes: QaType[];
 }
 
-const FAQ: React.FC<FAQProps> = ({ data, onToggleSelect, qaId }) => {
-  const [qaTypes, setQaTypes] = useState<QaType[]>();
+const FAQ = ({ qaList, onToggleSelect, qaId, qaTypes }: FAQProps) => {
   const [isSelectedId, setIsSelectedId] = useState<number | null>();
 
   const handleSelectAnswer = (id: number) => {
@@ -21,13 +20,6 @@ const FAQ: React.FC<FAQProps> = ({ data, onToggleSelect, qaId }) => {
       setIsSelectedId(null);
     }
   };
-  useEffect(() => {
-    const getData = async () => {
-      const response = await getFAQType();
-      setQaTypes(response.qaTypes);
-    };
-    getData();
-  }, []);
 
   return (
     <Container>
@@ -35,7 +27,7 @@ const FAQ: React.FC<FAQProps> = ({ data, onToggleSelect, qaId }) => {
       <Box>
         <h3>자주 묻는 질문</h3>
         <div>
-          {qaTypes?.map((item) => (
+          {qaTypes.map((item) => (
             <StyledButton
               key={item.id}
               width="50%"
@@ -50,7 +42,7 @@ const FAQ: React.FC<FAQProps> = ({ data, onToggleSelect, qaId }) => {
       </Box>
       <GrayBox></GrayBox>
 
-      {data.map((item) => (
+      {qaList.map((item) => (
         <QuestionBox
           item={item}
           key={item.id}
