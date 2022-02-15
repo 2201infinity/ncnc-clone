@@ -5,6 +5,7 @@ import Header from "components/common/Header";
 import {
   BrandAndProductListConCategory1,
   ClearanceList,
+  ClearanceListConItems,
   MainCategory,
 } from "types/response";
 import {
@@ -31,26 +32,21 @@ const CategoryDetailPage: NextPage<CategoryDetailProps> = ({
   const router = useRouter();
   const [categoryDetailListData, setCategoryDetailListData] = useState([]);
   const [title, setTitle] = useState("");
-
+  console.log(categoryDetailList.conCategory1.conCategory2s);
   useEffect(() => {
     if (router.query.id === "1") {
-      const temp = [];
-
-      setCategoryDetailListData((prev) =>
-        categoryDetailList.conCategory1.conCategory2s.map(
-          (data: ClearanceList) =>
-            data.conItems.map((item) => temp.push({ ...item }))
-        )
+      const result = categoryDetailList.conCategory1.conCategory2s.reduce(
+        (a: ConcatArray<ClearanceListConItems>, e: ClearanceList) => {
+          return e.conItems.concat(a);
+        },
+        []
       );
-      setCategoryDetailListData(temp);
-
+      setCategoryDetailListData(result);
       setTitle(categoryDetailList.name);
     } else {
       setTitle(categoryDetailList.conCategory1.name);
     }
   }, [categoryDetailList, router]);
-
-  console.log("categoryDetailListData", categoryDetailListData);
 
   return (
     <div>
