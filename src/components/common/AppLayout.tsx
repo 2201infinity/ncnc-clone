@@ -20,7 +20,19 @@ const Container = styled.div`
   justify-content: center;
   height: 100vh;
   padding: 0;
-  margin-top: 59px;
+  margin: auto;
+  padding-top: 59px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  overflow: scroll;
+  background-color: #fff;
+  max-width: 672px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const MainLayout = styled.div`

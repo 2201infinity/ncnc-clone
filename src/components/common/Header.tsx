@@ -9,13 +9,21 @@ interface HeaderProps {
   title?: string;
   leftIcon?: "hamburger" | "back";
   closeIcon?: boolean;
+  onClickLeft?: () => void;
+  onClickRight?: () => void;
 }
 
-function Header({ title, closeIcon, leftIcon }: HeaderProps) {
+function Header({
+  title,
+  closeIcon,
+  leftIcon,
+  onClickLeft,
+  onClickRight,
+}: HeaderProps) {
   return (
     <HeaderContainer>
       <LeftBox>
-        <HeaderIconButtonStyled>
+        <HeaderIconButtonStyled onClick={onClickLeft}>
           {closeIcon ? (
             <CloseIcon />
           ) : leftIcon === "back" ? (
@@ -27,7 +35,7 @@ function Header({ title, closeIcon, leftIcon }: HeaderProps) {
       </LeftBox>
       <Title>{title}</Title>
       <RightBox>
-        <HeaderIconButtonStyled>
+        <HeaderIconButtonStyled onClick={onClickRight}>
           <CloseIcon />
         </HeaderIconButtonStyled>
       </RightBox>
