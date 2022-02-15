@@ -4,22 +4,19 @@ import {
   CategoryItemType,
   MainCategory,
 } from "types/response";
+import Path, { PathValueTypes } from "utils/path";
 import GridCardItem from "./GridCardItem";
 
 export interface CardListProps {
   data: MainCategory[] | BrandAndProductListConCategory2[];
-  onClick: (item: CategoryItemType) => void;
+  path: PathValueTypes;
 }
 
-function GridCardList({ data, onClick }: CardListProps) {
+function GridCardList({ data, path }: CardListProps) {
   return (
     <>
       {data.map((item) => (
-        <GridCardItem
-          key={`GridCardItem_${item.id}`}
-          item={item}
-          onClick={onClick}
-        />
+        <GridCardItem key={`GridCardItem_${item.id}`} item={item} path={path} />
       ))}
     </>
   );

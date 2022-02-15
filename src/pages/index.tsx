@@ -1,27 +1,23 @@
 import Header from "components/common/Header";
 import type { NextPage } from "next";
 import { getMainCategoryList } from "utils/api";
-import { CategoryItemType, MainCategory } from "types/response";
+import { MainCategory } from "types/response";
 import styled from "styled-components";
 import GridCardList from "components/common/GridCardList";
-import { useRouter } from "next/router";
+import HomeBanner from "components/home/HomeBanner";
+import Path from "utils/path";
 
 interface HomeProps {
   categoryList: MainCategory[];
 }
 
 const Home: NextPage<HomeProps> = ({ categoryList }) => {
-  const router = useRouter();
-
-  const onClick = (item: CategoryItemType) => {
-    router.push(`categories/${item.id}`);
-  };
-
   return (
     <>
       <Header title="니콘내콘" leftIcon="hamburger" />
+      <HomeBanner />
       <CategoryListBox>
-        <GridCardList data={categoryList} onClick={onClick} />
+        <GridCardList data={categoryList} path={Path.Brands} />
       </CategoryListBox>
     </>
   );
