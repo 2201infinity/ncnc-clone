@@ -1,9 +1,8 @@
 import React from "react";
-import {
-  BrandDetailConItem,
-  ClearanceListConItems,
-  ProductDetailConItem,
-} from "types/response";
+import { BrandDetailConItem } from "types/brand";
+import { ClearanceListConItems } from "types/clearance";
+import { ProductDetailConItem } from "types/product";
+
 import { ProductCardItem } from "./ProductCardItem";
 
 interface ProductCardListProps {

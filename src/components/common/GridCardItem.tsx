@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
-import { CategoryItemType } from "types/response";
+import { CategoryItemType } from "types/category";
 import { PathValueTypes } from "utils/path";
 
 interface CardItemProps {

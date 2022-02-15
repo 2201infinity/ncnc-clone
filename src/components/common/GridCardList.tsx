@@ -1,5 +1,5 @@
 import React from "react";
-import { BrandAndProductListConCategory2, MainCategory } from "types/response";
+import { BrandAndProductListConCategory2, MainCategory } from "types/category";
 import { PathValueTypes } from "utils/path";
 import GridCardItem from "./GridCardItem";
 

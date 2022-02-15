@@ -1,14 +1,9 @@
 import axios from "axios";
-import {
-  BrandAndProductList,
-  BrandDetail,
-  BrandName,
-  ClearanceList,
-  FAQCont,
-  FAQType,
-  MainCategoryList,
-  ProductDetail,
-} from "types/response";
+import { BrandAndProductList, BrandDetail, BrandName } from "types/brand";
+import { MainCategoryList } from "types/category";
+import { ClearanceList } from "types/clearance";
+import { FAQCont, FAQType } from "types/faq";
+import { ProductDetail } from "types/product";
 import { API_ENDPOINT } from "./constants";
 
 export const api = axios.create({
