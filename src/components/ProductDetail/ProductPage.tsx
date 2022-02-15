@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { ProductCardItem } from "components/common/ProductCardItem";
+import React, { ReactElement, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { Option, ProductDetailConItem } from "types/response";
 import { getProductDetail } from "utils/api";
 import Button from "../common/Button";
-import OptionModal from "../OptionModal";
+import OptionModal from "./OptionModal";
 
-function ProductPage() {
+function ProductPage({ itemId }: { itemId: string }): ReactElement {
   const [modalOpen, setModalOpen] = useState(false);
   const [productDetail, setProductDetail] =
     useState<ProductDetailConItem | null>(null);
@@ -13,8 +14,10 @@ function ProductPage() {
   const [options, setOptions] = useState<Option[]>();
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (itemId) {
+      getData();
+    }
+  }, [itemId]);
 
   useEffect(() => {
     setNotice(productDetail?.warning.split("\n"));
@@ -23,7 +26,7 @@ function ProductPage() {
 
   const getData = async () => {
     try {
-      const data = await getProductDetail(501);
+      const data = await getProductDetail(itemId);
       setProductDetail(data.conItem);
     } catch (error) {
       console.log(error);
@@ -32,6 +35,7 @@ function ProductPage() {
 
   return (
     <Wrapper>
+      {productDetail !== null ? <ProductCardItem item={productDetail} /> : null}
       <NoticeWrapper modalOpen={modalOpen}>
         {notice?.map((item: string, index: number) => (
           <Notice key={`item_${index}`}>{item}</Notice>

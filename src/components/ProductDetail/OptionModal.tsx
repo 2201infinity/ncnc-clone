@@ -1,8 +1,8 @@
 import { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Option } from "types/response";
-import Modal from "./ProductDetail/Modal";
-import OptionItem from "./ProductDetail/OptionItem";
+import Modal from "./Modal";
+import OptionItem from "./OptionItem";
 
 interface IOptionModalProps {
   isModal: boolean;
