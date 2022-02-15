@@ -6,9 +6,9 @@ import styled from "styled-components";
 import GridCardList from "components/common/GridCardList";
 import HomeBanner from "components/home/HomeBanner";
 import Path from "utils/path";
-import { useState } from "react";
 import Sidebar from "components/sidebar";
 import ProductCardList from "components/common/ProductCardList";
+import useToggle from "hooks/useToggle";
 
 interface HomeProps {
   categoryList: MainCategory[];
@@ -16,9 +16,7 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({ categoryList, conItems }) => {
-  const [isSidebar, setIsSidebar] = useState(false);
-
-  const onToggleSidebar = () => setIsSidebar(!isSidebar);
+  const [isSidebar, onToggleSidebar] = useToggle();
 
   return (
     <>
