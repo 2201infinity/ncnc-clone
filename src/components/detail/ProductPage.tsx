@@ -19,12 +19,12 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
   const onToggleModal = () => {
     setModalOpen(false);
   };
+
   useEffect(() => {
     const getData = async () => {
       try {
         const data = await getProductDetail(itemId);
         setProductDetail(data.conItem);
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -39,7 +39,10 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
     setOptions(productDetail?.options);
   }, [productDetail]);
 
-  const onClick = (e: React.MouseEvent<HTMLDivElement>, item: Option) => {
+  const onSelectOption = (
+    e: React.MouseEvent<HTMLDivElement>,
+    item: Option
+  ) => {
     const option =
       new Date(item.expireAt).getFullYear() +
       "." +
@@ -52,6 +55,12 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
 
     setSelectedOption(option);
     onToggleModal();
+  };
+
+  const onBuyProduct = () => {
+    selectedOption
+      ? alert(`${selectedOption} 구매하기를 누르셨습니다`)
+      : setModalOpen(true);
   };
 
   const findTitle = (text: string) => {
@@ -78,8 +87,9 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
           ) : null
         )}
       </NoticeWrapper>
+
       {selectedOption && (
-        <SelectedOptionBox>
+        <SelectedOptionBox onClick={() => setModalOpen(true)}>
           <OptionInfo>
             <OptionTitle>{selectedOption}</OptionTitle>
             <IconWrapper>
@@ -88,19 +98,16 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
           </OptionInfo>
         </SelectedOptionBox>
       )}
+
       <ModalWrapper>
         <OptionModal
           isModal={modalOpen}
           onToggleModal={onToggleModal}
           options={options}
           discountRate={productDetail?.discountRate}
-          onClick={onClick}
+          onClick={onSelectOption}
         ></OptionModal>
-        <StyledButton
-          width="100%"
-          onClick={() => setModalOpen(true)}
-          disabled={modalOpen}
-        >
+        <StyledButton width="100%" onClick={onBuyProduct} disabled={modalOpen}>
           {selectedOption ? "구매하기" : "옵션 선택하기"}
         </StyledButton>
       </ModalWrapper>
@@ -109,6 +116,7 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
 }
 
 export default ProductPage;
+
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -153,6 +161,7 @@ const SelectedOptionBox = styled.div`
   align-items: center;
   width: 100%;
   bottom: 80px;
+  cursor: pointer;
 `;
 
 const OptionInfo = styled.div`

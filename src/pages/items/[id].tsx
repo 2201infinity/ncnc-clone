@@ -1,5 +1,5 @@
 import Header from "components/common/Header";
-import ProductPage from "components/productDetail/ProductPage";
+import ProductPage from "components/detail/ProductPage";
 import { useRouter } from "next/router";
 import React from "react";
 
