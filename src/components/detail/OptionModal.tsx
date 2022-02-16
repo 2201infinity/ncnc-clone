@@ -1,7 +1,6 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 import styled from "styled-components";
 import { Option } from "types/product";
-import { comma } from "utils/comma";
 import { dateFormat } from "utils/date";
 import Modal from "./Modal";
 import OptionItem from "./OptionItem";
@@ -30,13 +29,7 @@ function OptionModal({
         {options?.map((item) => (
           <div key={item.expireAt} onClick={(e) => onClick(e, item)}>
             <OptionItem
-              expireAt={
-                new Date(item.expireAt).getFullYear() +
-                "." +
-                new Date(item.expireAt).getMonth() +
-                "." +
-                new Date(item.expireAt).getDate()
-              }
+              expireAt={dateFormat(item.expireAt)}
               count={item.count}
               sellingPrice={item.sellingPrice}
               discountRate={discountRate}

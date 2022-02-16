@@ -1,9 +1,11 @@
-import { ProductCardItem } from "components/common/ProductCardItem";
-import PencilIcon from "icons/PencilIcon";
 import React, { ReactElement, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
+import { ProductCardItem } from "components/common/ProductCardItem";
 import { Option, ProductDetailConItem } from "types/product";
+import { findRemoveText, findTitle } from "utils/textParser";
 import { getProductDetail } from "utils/api";
+import { dateFormat } from "utils/date";
+import PencilIcon from "icons/PencilIcon";
 import { comma } from "utils/comma";
 import Button from "../common/Button";
 import OptionModal from "./OptionModal";
@@ -44,14 +46,7 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
     item: Option
   ) => {
     const option =
-      new Date(item.expireAt).getFullYear() +
-      "." +
-      new Date(item.expireAt).getMonth() +
-      "." +
-      new Date(item.expireAt).getDate() +
-      " 까지 / " +
-      comma(item.sellingPrice) +
-      "원";
+      dateFormat(item.expireAt) + " 까지 / " + comma(item.sellingPrice) + "원";
 
     setSelectedOption(option);
     onToggleModal();
@@ -59,16 +54,8 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
 
   const onBuyProduct = () => {
     selectedOption
-      ? alert(`${selectedOption} 구매하기를 누르셨습니다`)
+      ? alert(`${selectedOption} 쿠폰 구매하기를 누르셨습니다!`)
       : setModalOpen(true);
-  };
-
-  const findTitle = (text: string) => {
-    return text.charAt(0) === "[" || text.trim() === "";
-  };
-
-  const findXText = (text: string) => {
-    return text.substring(1, 2) === "사";
   };
 
   return (
@@ -80,7 +67,7 @@ function ProductPage({ itemId }: { itemId: string }): ReactElement {
             <Notice key={`item_${index}`}>
               {item && item.slice(2, item.length)}
             </Notice>
-          ) : !findXText(item) ? (
+          ) : !findRemoveText(item) ? (
             <NoticeTitle key={`item_${index}`}>
               {item.slice(1, item.length - 1)}
             </NoticeTitle>
