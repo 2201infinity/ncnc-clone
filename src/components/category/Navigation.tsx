@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { MainCategory } from "types/category";
+import useNavigation from "./hooks/useNavigation";
 
 interface NavigationProps {
   item: MainCategory[];
@@ -10,34 +11,8 @@ interface NavigationProps {
 
 export const Navigation = ({ item }: NavigationProps): JSX.Element => {
   const router = useRouter();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isDrag, setIsDrag] = useState(false);
-  const [startX, setStartX] = useState(0);
+  const { scrollRef, onDragStart, onDragEnd, onDragMove } = useNavigation();
 
-  const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDrag(true);
-    setStartX(e.pageX + scrollRef.current!.scrollLeft);
-  };
-
-  const onDragEnd = () => {
-    setIsDrag(false);
-  };
-
-  const onDragMove = (e: React.DragEvent<HTMLDivElement>) => {
-    if (!scrollRef.current) return;
-    if (isDrag) {
-      const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
-
-      scrollRef.current.scrollLeft = startX - e.pageX;
-
-      if (scrollLeft === 0) {
-        setStartX(e.pageX);
-      } else if (scrollWidth <= clientWidth + scrollLeft) {
-        setStartX(e.pageX + scrollLeft);
-      }
-    }
-  };
   return (
     <NavContainer
       onMouseDown={onDragStart}

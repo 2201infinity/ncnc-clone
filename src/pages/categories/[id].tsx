@@ -79,8 +79,43 @@ const CategoryDetailPage: NextPage<CategoryDetailProps> = ({
 const GridCardContainer = styled.div`
   padding: 7px 17px 17px;
 `;
-export const getServerSideProps = async (context: any) => {
-  const router = context.query.id;
+export const getStaticPaths = async () => {
+  return {
+    paths: [
+      {
+        params: { id: "67" },
+      },
+      {
+        params: { id: "60" },
+      },
+      {
+        params: { id: "62" },
+      },
+      {
+        params: { id: "1" },
+      },
+      {
+        params: { id: "61" },
+      },
+      {
+        params: { id: "65" },
+      },
+      {
+        params: { id: "129" },
+      },
+      {
+        params: { id: "69" },
+      },
+      {
+        params: { id: "128" },
+      },
+    ],
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async (context: any) => {
+  const router = context.params.id;
   const categoryList = await getMainCategoryList();
   const data =
     router === 1
